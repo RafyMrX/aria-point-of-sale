@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                 <label>Nama Supplier</label>
-                <input type="text" wire:model="name" wire:model.defer class="@error('name') is-invalid @enderror  form-control" placeholder="isi nama supplier">
+                <input type="text" wire:model="name" wire:model.defer class="@if($errors->has('name')) is-invalid @elseif($name == null)  @else is-valid @endif  form-control" placeholder="isi nama supplier">
                 @error('name') 
                 <span class="error text-danger">{{ $message }}</span> 
                 @enderror
@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                 <label>No Telp</label>
-                <input type="text" wire:model="tlp" class="@error('tlp') is-invalid @enderror form-control" placeholder="cth. 081399990090">
+                <input type="text" wire:model="tlp" class="@if($errors->has('tlp')) is-invalid @elseif($tlp == null)  @else is-valid @endif form-control" placeholder="cth. 081399990090">
                 @error('tlp') 
                 <span class="error text-danger">{{ $message }}</span> 
                 @enderror
@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                 <label>Email</label>
-                <input type="email" wire:model="email" class="@error('email') is-invalid @enderror form-control" placeholder="cth. joendoe@gmail.com">
+                <input type="email" wire:model="email" class="@if($errors->has('email')) is-invalid @elseif($email == null)  @else is-valid @endif form-control" placeholder="cth. joendoe@gmail.com">
                 @error('email') 
                 <span class="error text-danger">{{ $message }}</span> 
                 @enderror

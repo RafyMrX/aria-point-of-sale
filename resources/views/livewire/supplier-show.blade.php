@@ -3,7 +3,7 @@
         <button type="button" wire:click='createSupplier' class="btn btn-success mb-3 float-end" data-toggle="modal" data-target="#suppliermodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Supplier</button>
     </div>
     @include('livewire.supplier-modal') 
-    <table id="example2" class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>No</th>
