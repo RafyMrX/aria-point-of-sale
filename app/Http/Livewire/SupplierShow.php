@@ -4,18 +4,29 @@ namespace App\Http\Livewire;
 
 use App\Models\Supplier;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SupplierShow extends Component
 {
-    public $kd_supplier, $name, $address, $tlp, $email;
-    public $suppliers, $supplier_id;
+    use WithPagination;
     protected $listeners = ['deleteConfirmed' => 'deleteSupplier'];
+    public $kd_supplier, $name, $address, $tlp, $email;
+    public  $supplier_id;
 
+
+    // Datatable 
+    public $sortColumnName = 'created_at', $sortDirection = 'desc', $searchTerm = null, $showData = 5, $selectedRows = [], $selectedPageRows = false;
+    protected $paginationTheme = 'bootstrap';
+    protected $queryString = ['searchTerm' => ['except' => '']];
+
+    
     public function render()
     {
-        $this->suppliers = Supplier::all();
-        return view('livewire.supplier-show');
+        $suppliers = $this->dataList();
+        return view('livewire.supplier-show', compact('suppliers'));
     }
+
+
 
     protected function rules()
     {
@@ -31,6 +42,7 @@ class SupplierShow extends Component
         'email.email' => 'Bagian email harus benar menggunakan format email @.',
         'tlp.digits_between' => 'Bagian no telp harus angka dan panjang antara 10 - 13 digit.',
     ];
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
@@ -42,8 +54,8 @@ class SupplierShow extends Component
     }
 
     public function createSupplier(){
-        $this->resetValidation();
         $this->resetInput();
+        $this->resetValidation();
         $supplier = new Supplier();
         $this->kd_supplier =  $supplier->kd_supplier();
     }
@@ -64,7 +76,7 @@ class SupplierShow extends Component
     }
 
     public function editSupplier(int $id){
-        
+        $this->resetInput();
         $this->resetValidation();
         $supplier   = Supplier::find($id);
         if($supplier){
@@ -105,7 +117,55 @@ class SupplierShow extends Component
         $this->dispatchBrowserEvent('swal',['data' => 'Data berhasil dihapus!']);
     }
 
+    public function deleteSelectedRows(){
+        Supplier::whereIn('id', $this->selectedRows)->delete();
+        $this->dispatchBrowserEvent('swal',['data' => 'Data berhasil dihapus!']);
+        $this->reset(['selectedRows', 'selectedPageRows']);
+    }
 
+
+    // DATATABLE
+        // shorting
+    public function sortBy($columnName){
+        if($this->sortColumnName === $columnName){
+            $this->sortDirection = $this->swapDirection();
+        }else{
+            $this->sortDirection = 'asc';
+        }
+        $this->sortColumnName = $columnName;
+    }
+
+    public function swapDirection(){
+        return $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+        // search
+    public function updatedsearchTerm(){
+            $this->resetPage();
+    }
+
+    public function updatedshowData(){
+            $this->resetPage();
+    }
+    // Bulk
+    public function updatedselectedPageRows($value){
+        if($value){
+            $this->selectedRows = $this->dataList()->pluck('id')->map(function ($id){
+                return (string) $id;
+            });
+        }else{
+            $this->reset(['selectedRows', 'selectedPageRows']);
+        }
+    }
+
+    // main data
+    public function dataList(){
+        return Supplier::where('id_supplier', 'LIKE', '%'.$this->searchTerm.'%')
+        ->orWhere('name', 'LIKE', '%'.$this->searchTerm.'%')
+        ->orderBy($this->sortColumnName, $this->sortDirection)
+        ->paginate($this->showData);
+    }
+    // END DATATABLE
 
     public function resetInput(){
         $this->reset(['kd_supplier','name', 'address','tlp','email']);

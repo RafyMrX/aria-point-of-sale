@@ -47411,8 +47411,8 @@ a.text-muted:hover {
 
 .accent-primary .page-item.active a,
 .accent-primary .page-item.active .page-link {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #5f815e;
+  border-color: #6c757d;
   color: #fff;
 }
 

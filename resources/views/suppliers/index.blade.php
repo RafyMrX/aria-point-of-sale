@@ -1,24 +1,23 @@
 @extends('layouts.main')
 @section('title', 'Data Supplier')
-@section('page-title', 'Data Supplier')
+{{-- @section('page-title', 'Data Supplier') --}}
 @push('styles')
     @livewireStyles
 @endpush
+
 @push('scripts')
     @livewireScripts
 @endpush
 
 @section('content')
-<div class="card card-secondary">
+<div class="card card-light">
     <div class="card-header">
-        
+        <h4>Data Supplier</h4>
     </div>
     <!-- /.card-header -->
 <div class="card-body">
   @livewire('supplier-show')
 
-
-   
 </div>
 </div>
 @push('scripts')

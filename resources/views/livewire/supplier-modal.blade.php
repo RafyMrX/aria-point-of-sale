@@ -14,7 +14,10 @@
                 <div class="form-group">
                 <label>Kode Supplier</label>
                 <input type="text" wire:model="kd_supplier" readonly  class="form-control">
-                <small id="emailHelp" class="form-text text-muted"><i class="fa fa-info-circle text-success" aria-hidden="true"></i> Kode supplier otomatis</small>
+                <small id="emailHelp" class="form-text text-muted">
+                  <span wire:loading.remove wire:target='createSupplier'><i class="fa fa-info-circle text-success" aria-hidden="true"></i>  Kode supplier otomatis</span> 
+                  <span wire:loading wire:target='createSupplier'>Loading....</span>
+                </small>
                 @error('kd_supplier')
                  <span class="error text-danger">{{ $message }}</span> 
                 @enderror
@@ -22,7 +25,7 @@
 
                 <div class="form-group">
                 <label>Nama Supplier</label>
-                <input type="text" wire:model="name" wire:model.defer class="@if($errors->has('name')) is-invalid @elseif($name == null)  @else is-valid @endif  form-control" placeholder="isi nama supplier">
+                <input type="text" wire:model="name"   class="@if($errors->has('name')) is-invalid @elseif($name == null)  @else is-valid @endif  form-control" placeholder="isi nama supplier">
                 @error('name') 
                 <span class="error text-danger">{{ $message }}</span> 
                 @enderror
@@ -54,9 +57,9 @@
      
             </div>
             <div class="modal-footer">
-                <button wire:click='cancel' type="button" class="btn btn-danger" data-dismiss="modal">batal</button>
+                <button wire:click='cancel' type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> batal</button>
                 <button type="submit" class="btn btn-success" wire:loading.attr='disabled' wire:target='saveSupplier'>
-                    <span wire:loading.remove wire:target='saveSupplier'>simpan</span>
+                    <span wire:loading.remove wire:target='saveSupplier'><i class="fa fa-save"></i> simpan</span>
                     <div wire:loading wire:target='saveSupplier'>
                         <div class="spinner-border spinner-border-sm" role="status">
                         </div>
@@ -88,7 +91,10 @@
               <div class="form-group">
               <label>Kode Supplier</label>
               <input type="text" wire:model="kd_supplier" readonly  class="form-control">
-              <small id="emailHelp" class="form-text text-muted"><i class="fa fa-info-circle text-success" aria-hidden="true"></i> Kode supplier otomatis</small>
+              <small id="emailHelp" class="form-text text-muted">
+                <span wire:loading.remove wire:target='editSupplier'><i class="fa fa-info-circle text-success" aria-hidden="true"></i>  Kode supplier otomatis</span> 
+                  <span wire:loading wire:target='editSupplier'>Loading....</span>
+              </small>
               @error('kd_supplier')
                <span class="error text-danger">{{ $message }}</span> 
               @enderror
@@ -128,9 +134,9 @@
    
           </div>
           <div class="modal-footer">
-              <button wire:click='cancel' type="button" class="btn btn-danger" data-dismiss="modal">batal</button>
+              <button wire:click='cancel' type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>  batal</button>
               <button type="submit" class="btn btn-warning" wire:loading.attr='disabled' wire:target='updateSupplier'>
-                  <span wire:loading.remove wire:target='updateSupplier'>Edit</span>
+                  <span wire:loading.remove wire:target='updateSupplier'><i class="fa fa-save"></i>  Simpan Perubahan</span>
                   <div wire:loading wire:target='updateSupplier'>
                       <div class="spinner-border spinner-border-sm" role="status">
                       </div>
