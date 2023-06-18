@@ -73,8 +73,9 @@
       <td  class=" align-middle">{{ $supplier->tlp }}</td>
       <td  class=" align-middle">{{ $supplier->email }}</td>    
       <td  class=" align-middle">
-      <button data-toggle="modal" data-target="#updatesuppliermodal" wire:click='editSupplier({{ $supplier->id }})' type="submit" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> |
+      <button data-toggle="modal" data-target="#updatesuppliermodal" wire:click='editSupplier({{ $supplier->id }})' type="submit" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
       @if(!$selectedRows)
+      |
       <button type="submit" class="btn btn-danger" wire:click="deleteConfirmation({{ $supplier->id }})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
       @endif
       </td>

@@ -8,13 +8,14 @@ use Livewire\WithPagination;
 
 class SupplierShow extends Component
 {
-    use WithPagination;
+    
     protected $listeners = ['deleteConfirmed' => 'deleteSupplier'];
     public $kd_supplier, $name, $address, $tlp, $email;
     public  $supplier_id;
 
 
     // Datatable 
+    use WithPagination;
     public $sortColumnName = 'created_at', $sortDirection = 'desc', $searchTerm = null, $showData = 5, $selectedRows = [], $selectedPageRows = false;
     protected $paginationTheme = 'bootstrap';
     protected $queryString = ['searchTerm' => ['except' => '']];

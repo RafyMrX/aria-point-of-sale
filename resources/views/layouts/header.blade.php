@@ -128,7 +128,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-supplier') }}" class="nav-link">
+                                    <a href="{{ url('/suppliers') }}" class="nav-link">
                                         <i class="nav-icon far fa-circle text-info"></i>
                                         <p>Data Supplier</p>
                                     </a>
@@ -139,15 +139,15 @@
                             <a href="#" class="nav-link">
                                 <i class="fa fa-tags" aria-hidden="true"></i>
                                 <p>
-                                    Manajemen Outlet
+                                    Manajemen Retail
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-pelamar') }}" class="nav-link">
+                                    <a href="{{ url('/retails') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info text-info"></i>
-                                        <p>Data Outlet</p>
+                                        <p>Data Retail</p>
                                     </a>
                                 </li>
                               
