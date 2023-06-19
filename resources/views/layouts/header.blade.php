@@ -158,15 +158,15 @@
                             <a href="#" class="nav-link">
                                 <i class="fa fa-list-ol" aria-hidden="true"></i>
                                 <p>
-                                    Manajemen Kategori
+                                     Manajemen Kategori
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-petugas/tambah') }}" class="nav-link">
+                                    <a href="{{ url('/categories') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-warning"></i>
-                                        <p>Data Kategori</p>
+                                        <p>Data Kategori </p>
                                     </a>
                                 </li>
                               
@@ -183,17 +183,17 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-ujian') }}" class="nav-link">
+                                    <a href="{{ url('/products') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Data Produk</p>
                                     </a>
                                 </li>  
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{ url('/data-ujian') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Data Bahan/Material</p>
                                     </a>
-                                </li>                              
+                                </li>                               --}}
                             </ul>
                         </li>
                      

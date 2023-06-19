@@ -8,4 +8,8 @@ Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard'
 // data supplier
 Route::get('/suppliers',[PagesController::class, 'suppliers'])->name('suppliers');
 // data outlet
-Route::get('/retails',[PagesController::class, 'retails'])->name('data.supplier');
+Route::get('/retails',[PagesController::class, 'retails'])->name('retails');
+// data kategori
+Route::get('/categories',[PagesController::class, 'categories'])->name('categories');
+// data kategori
+Route::get('/products',[PagesController::class, 'products'])->name('products');

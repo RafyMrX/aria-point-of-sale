@@ -147,11 +147,6 @@ class Show extends Component
         ]);
     }
 
-    public function deleteSelectedRows(){
-        Retail::whereIn('id', $this->selectedRows)->delete();
-        $this->dispatchBrowserEvent('swal',['data' => 'Data berhasil dihapus!']);
-        $this->reset(['selectedRows', 'selectedPageRows']);
-    }
 
     // DATATABLE
         // shorting
@@ -171,6 +166,7 @@ class Show extends Component
             // search
         public function updatedsearchTerm(){
                 $this->resetPage();
+                $this->s = null;
         }
     
         public function updatedshowData(){
@@ -187,17 +183,28 @@ class Show extends Component
             }
         }
 
+        public function deleteSelectedRows(){
+            Retail::whereIn('id', $this->selectedRows)->delete();
+            $this->dispatchBrowserEvent('swal',['data' => 'Data berhasil dihapus!']);
+            $this->reset(['selectedRows', 'selectedPageRows']);
+        }
+
     public function filterStatus($s = null){
             $this->s = $s;
         }
 
     public function dataList(){
-        return Retail::when($this->s, function($query, $s){
-             return $query->where('status', $s);
-        })
-        ->orWhere('id_retail', 'LIKE', '%'.$this->searchTerm.'%')
-        ->orWhere('name', 'LIKE', '%'.$this->searchTerm.'%')
-        ->orderBy($this->sortColumnName, $this->sortDirection)
-        ->paginate($this->showData);
+        if($this->s != null){
+            return Retail::when($this->s, function($query){
+                 return $query->where('status', $this->s);
+            })
+            ->orderBy($this->sortColumnName, $this->sortDirection)
+            ->paginate($this->showData);
+        }else{
+            return Retail::where('id_retail', 'LIKE', '%'.$this->searchTerm.'%')
+           ->orWhere('name', 'LIKE', '%'.$this->searchTerm.'%')
+           ->orderBy($this->sortColumnName, $this->sortDirection)
+           ->paginate($this->showData);
+        }
     }
 }

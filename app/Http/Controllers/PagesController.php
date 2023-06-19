@@ -16,4 +16,12 @@ class PagesController extends Controller
     {
         return view('retails.index');
     }
+    public function categories()
+    {
+        return view('categories.index');
+    }
+    public function products()
+    {
+        return view('products.index');
+    }
 }
