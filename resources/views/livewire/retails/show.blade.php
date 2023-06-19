@@ -1,6 +1,7 @@
 
 <div>
     <div>
+        @include('livewire.retails.modal') 
         <button type="button" wire:click='createRetail' class="btn btn-success mb-3 float-end" data-toggle="modal" data-target="#retailmodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Retail</button>
         {{-- DATA TABLE --}}
         <div class="row mb-2">
@@ -27,15 +28,15 @@
             
             <div class="float-right">
                 <div class="btn-group mr-2">
-                  <button type="button" class="btn btn-default">
+                  <button wire:click='filterStatus' type="button" class="btn btn-default">
                     <span class="mr-1">Semua</span>
                     <span class="badge badge-pill badge-info">{{ $allStatus }}</span>
                   </button>
-                  <button type="button" class="btn btn-default">
+                  <button wire:click='filterStatus(1)'  type="button" class="btn btn-default">
                     <span class="mr-1">Aktif</span>
                     <span class="badge badge-pill badge-success">{{ $aktif }}</span>
                   </button>
-                  <button type="button" class="btn btn-default">
+                  <button wire:click='filterStatus(2)'  type="button" class="btn btn-default">
                     <span class="mr-1">Tidak Aktif</span>
                     <span class="badge badge-pill badge-secondary">{{ $nonAktif }}</span>
                   </button>
@@ -47,7 +48,7 @@
         </div>
         </div>
     </div>
-    {{-- @include('livewire.supplier-modal')  --}}
+
 
     <div class="table-responsive">
       <x-loading wire:loading.delay.longest/>
@@ -93,8 +94,8 @@
       <td  class=" align-middle">{{ $item->email }}</td>   
       <td  class=" align-middle">
         <div class="custom-control custom-switch">
-          <input wire:change='switchStatus({{$item->id}}, {{  $item->status }})' type="checkbox" class="custom-control-input" @checked($item->status == true) id="{{ $item->id_retail }}">
-          <label class="custom-control-label text-sm  @if($item->status == true) text-success @else text-secondary @endif" for="{{ $item->id_retail }}">{{ $item->status == true ? 'Aktif' : 'Tidak Aktif' }}</label>
+          <input wire:change='switchStatus({{$item->id}}, {{  $item->status }})' type="checkbox" class="custom-control-input" @checked($item->status == 1) id="{{ $item->id_retail }}">
+          <label class="custom-control-label text-sm  @if($item->status == 1) text-success @else text-secondary @endif" for="{{ $item->id_retail }}">{!! $item->status == 1 ? "Aktif <i class='fa fa-circle' ></i>" : "Tidak Aktif <i class='fa fa-circle ' ></i>" !!}</label>
       </div>  
       </td>    
       <td  class=" align-middle">

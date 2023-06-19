@@ -28,7 +28,7 @@ class SupplierShow extends Component
     }
 
 
-
+// START VALIDATION FORM
     protected function rules()
     {
         return [
@@ -48,6 +48,7 @@ class SupplierShow extends Component
     {
         $this->validateOnly($propertyName);
     }
+// END VALIDATION FORM 
 
     public function cancel(){
         $this->resetInput();
@@ -89,7 +90,7 @@ class SupplierShow extends Component
             $this->email = $supplier->email;
 
         }else{
-            return redirect()->to('/data-supplier');
+            return redirect()->to('/suppliers');
         }
     }
 

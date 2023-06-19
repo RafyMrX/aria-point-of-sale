@@ -90,7 +90,7 @@
             <!-- Brand Logo -->
             <a href="/" class="brand-link" style="background-color: #2c2d2e;color:#fff;">
                 <img src="" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <h4 class=" text-center">ARIA System</h4>
+                <h4 class=" text-center">Point of Sale System</h4>
             </a>
 
             <!-- Sidebar -->
@@ -156,6 +156,25 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
+                                <i class="fa fa-list-ol" aria-hidden="true"></i>
+                                <p>
+                                    Manajemen Kategori
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('/data-petugas/tambah') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-warning"></i>
+                                        <p>Data Kategori</p>
+                                    </a>
+                                </li>
+                              
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
                                 <i class="fa fa-barcode" aria-hidden="true"></i> 
                                 <p>
                                     Manajemen Produk
@@ -175,24 +194,6 @@
                                         <p>Data Bahan/Material</p>
                                     </a>
                                 </li>                              
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa fa-list-ol" aria-hidden="true"></i>
-                                <p>
-                                    Manajemen Kategori
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('/data-petugas/tambah') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-warning"></i>
-                                        <p>Data Kategori</p>
-                                    </a>
-                                </li>
-                              
                             </ul>
                         </li>
                      

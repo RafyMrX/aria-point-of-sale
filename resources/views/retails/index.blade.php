@@ -24,8 +24,8 @@
 @push('scripts')
   <script>
      window.addEventListener('close-modal', function(e) {
-      $('#suppliermodal').modal('hide');
-      $('#updatesuppliermodal').modal('hide');
+      $('#retailmodal').modal('hide');
+      $('#updateretailmodal').modal('hide');
      });
     window.addEventListener('swal', function(e) {
       Swal.fire({
@@ -41,17 +41,13 @@
 
     window.addEventListener('confirm-delete-dialog', event => {
        Swal.fire({
-        
         title: 'Apakah anda yakin ?',
-        
         showCancelButton: true,
         icon: 'warning',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Ya, hapus!',
         text: "Data akan dihapus permanen!",
-        
-        
       }).then((result) => {
             if (result.isConfirmed) {
               Livewire.emit('deleteConfirmed')
