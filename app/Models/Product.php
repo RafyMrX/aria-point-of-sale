@@ -9,7 +9,11 @@ class Product extends Model
 {
     protected $table = "products";
     protected $guarded = ['created_at', 'updated_at'];
-  
+    
+    public function category(){
+        return $this->hasOne('App\Models\Category', 'id_category','id_category');
+    }
+
     public function kd_product(){
         $kode = Product::orderBy('id_product', 'desc')->first();
         if(empty($kode)){

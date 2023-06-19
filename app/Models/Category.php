@@ -9,7 +9,11 @@ class Category extends Model
 {
     protected $table = "categories";
     protected $guarded = ['created_at', 'updated_at'];
-  
+    
+    public function product(){
+        return $this->hasMany(Product::class, 'id_category','id_category');
+    }
+
     public function kd_category(){
         $kode = Category::orderBy('id_category', 'desc')->first();
         if(empty($kode)){

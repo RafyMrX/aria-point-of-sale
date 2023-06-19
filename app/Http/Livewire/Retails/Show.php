@@ -171,6 +171,7 @@ class Show extends Component
     
         public function updatedshowData(){
                 $this->resetPage();
+                $this->s = null;
         }
         // Bulk
         public function updatedselectedPageRows($value){

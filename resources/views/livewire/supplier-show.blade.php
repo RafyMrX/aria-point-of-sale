@@ -24,7 +24,7 @@
           </div>
           <div class="col-md-8">
             <div class="float-right">
-            <x-search-input  wire:model='searchTerm'/>
+            <x-search-input placeholder="Cari kode, nama"   wire:model='searchTerm'/>
             </div>
         </div>
         </div>

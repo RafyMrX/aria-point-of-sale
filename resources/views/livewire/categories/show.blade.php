@@ -24,7 +24,7 @@
           </div>
           <div class="col-md-8">
             <div class="float-right">
-            <x-search-input  wire:model='searchTerm'/>
+            <x-search-input placeholder="Cari kode, nama"   wire:model='searchTerm'/>
             </div>
         </div>
         </div>
@@ -42,7 +42,7 @@
         <th>#</th>
         <th>
           Kode
-          <span wire:click="sortBy('id_supplier')" class="float-right text-sm" style="cursor: pointer;">
+          <span wire:click="sortBy('id_category')" class="float-right text-sm" style="cursor: pointer;">
             <i class="fa fa-arrow-up {{ $sortColumnName === 'id_supplier' && $sortDirection === 'asc' ? '' : 'text-dark' }}"></i>
             <i class="fa fa-arrow-down {{ $sortColumnName === 'id_supplier' && $sortDirection === 'desc' ? '' : 'text-dark' }}"></i>
           </span>

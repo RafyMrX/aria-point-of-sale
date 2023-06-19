@@ -1,5 +1,5 @@
        <div class="input-group">
-        <input {{ $attributes }} type="text" class="form-control " placeholder="Cari kode, nama">
+        <input {{ $attributes }} type="text" class="form-control ">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">
             <span wire:loading.remove wire:target='searchTerm'>
