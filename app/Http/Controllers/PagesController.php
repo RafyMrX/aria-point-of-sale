@@ -24,4 +24,11 @@ class PagesController extends Controller
     {
         return view('products.index');
     }
+    public function sales()
+    {
+        return view('sales.index');
+    }
+    public function dataSales(){
+        return view('sales.datasales');
+    }
 }

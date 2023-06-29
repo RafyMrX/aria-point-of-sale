@@ -191,6 +191,7 @@ class Show extends Component
         }
 
     public function filterStatus($s = null){
+        $this->searchTerm = null;
             $this->s = $s;
         }
 

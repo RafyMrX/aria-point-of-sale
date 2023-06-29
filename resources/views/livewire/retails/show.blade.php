@@ -93,6 +93,7 @@
       <td  class=" align-middle">{{ $item->tlp }}</td>
       <td  class=" align-middle">{{ $item->email }}</td>   
       <td  class=" align-middle">
+        
         <div class="custom-control custom-switch">
           <input wire:change='switchStatus({{$item->id}}, {{  $item->status }})' type="checkbox" class="custom-control-input" @checked($item->status == 1) id="{{ $item->id_retail }}">
           <label class="custom-control-label text-sm  @if($item->status == 1) text-success @else text-secondary @endif" for="{{ $item->id_retail }}">{!! $item->status == 1 ? "Aktif <i class='fa fa-circle' ></i>" : "Tidak Aktif <i class='fa fa-circle ' ></i>" !!}</label>

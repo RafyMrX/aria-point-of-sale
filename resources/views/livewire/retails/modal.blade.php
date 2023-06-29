@@ -58,7 +58,7 @@
                 <div class="form-group">
                   <label>Status Retail</label>
                   <div class="custom-control custom-switch">
-                    <input wire:change='switchStatusCreate(2)' type="checkbox" class="custom-control-input" id="status">
+                    <input wire:change='switchStatusCreate(2)' type="checkbox" class="custom-control-input" id="status" @checked($switchValue == 1)>
                     <label class="custom-control-label text-sm" for="status">{!! $switchValue == 2 ? "<span>Tidak Aktif</span>" : "<span class='text-success'>Aktif</span>" !!}</label>
                   </div> 
                   </div> 

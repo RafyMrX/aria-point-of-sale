@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Data Produk')
+@section('title', 'Transaksi Penjualan')
 {{-- @section('page-title', 'Data Supplier') --}}
 @push('styles')
     @livewireStyles
@@ -12,12 +12,17 @@
 @section('content')
 <div class="card card-light">
     <div class="card-header">
-        <h4>Data Produk</h4>
+        <h4>Transaksi Penjualan</h4>
     </div>
     <!-- /.card-header -->
 <div class="card-body">
 {{-- CONTENT LIVEWIRE --}}
-@livewire('products.show')
+<a href="{{ route('sales') }}" class="btn btn-success">Transaksi</a>
+<a href="{{ route('data.sales') }}" class="btn btn-success">Data Penjualan</a>
+<hr>
+@livewire('sales.show')
+  
+
 
 </div>
 </div>

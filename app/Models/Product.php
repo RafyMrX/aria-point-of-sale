@@ -14,6 +14,21 @@ class Product extends Model
         return $this->hasOne('App\Models\Category', 'id_category','id_category');
     }
 
+    public function barcode(){
+        $kode = Product::orderBy('id_product', 'desc')->first();
+        if(empty($kode)){
+            $fr = "PR0001";
+            $num = substr($fr, 2, 4);
+            $add = (int) $num;
+            $format =  $add.''.date('dmY');
+        }else{
+        $num = substr($kode->id_product, 2, 4);
+        $add = (int) $num + 1;
+        $format =  $add.''.date('dmY');
+    }
+    return $format;
+}
+
     public function kd_product(){
         $kode = Product::orderBy('id_product', 'desc')->first();
         if(empty($kode)){

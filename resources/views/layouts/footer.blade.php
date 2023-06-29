@@ -17,7 +17,7 @@ color: #fff;">
 
 
 <!-- jQuery -->
-@stack('scripts')
+
 <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -80,6 +80,7 @@ $('#example2').DataTable({
 
 
 </script>
+@stack('scripts')
 </body>
 
 </html>

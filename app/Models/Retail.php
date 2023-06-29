@@ -9,6 +9,7 @@ class Retail extends Model
 {
     protected $table = "retails";
     protected $guarded = ['created_at', 'updated_at'];
+
   
     public function kd_retail(){
         $kode = Retail::orderBy('id_retail', 'desc')->first();

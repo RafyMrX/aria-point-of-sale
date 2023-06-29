@@ -90,7 +90,7 @@
             <!-- Brand Logo -->
             <a href="/" class="brand-link" style="background-color: #2c2d2e;color:#fff;">
                 <img src="" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <h4 class=" text-center">Point of Sale System</h4>
+                <h4 class=" text-center">ARIA System</h4>
             </a>
 
             <!-- Sidebar -->
@@ -198,9 +198,36 @@
                         </li>
                      
                         <li class="nav-header">DATA TRANSAKSI</li>
+                    
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="fa fa-qrcode" aria-hidden="true"></i>
+                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                <p>
+                                    Transaksi Penjualan
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('/sales') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-info"></i>
+                                        <p>Penjualan Produk</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-info"></i>
+                                        <p>Retur Penjualan</p>
+                                    </a>
+                                </li>   
+          
+                              
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                 <p>
                                     Transaksi Pembelian
                                     <i class="fas fa-angle-left right"></i>
@@ -217,32 +244,6 @@
                                     <a href="{{ url('/data-kriteria') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Retur Pembelian</p>
-                                    </a>
-                                </li>   
-          
-                              
-                            </ul>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa fa-qrcode" aria-hidden="true"></i>
-                                <p>
-                                    Transaksi Penjualan
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-info"></i>
-                                        <p>Penjualan Produk</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-info"></i>
-                                        <p>Retur Penjualan</p>
                                     </a>
                                 </li>   
           
