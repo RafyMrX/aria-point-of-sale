@@ -10,6 +10,10 @@ class Product extends Model
     protected $table = "products";
     protected $guarded = ['created_at', 'updated_at'];
     
+    public function cart(){
+        return $this->hasMany('App\Models\Cart', 'id_product','id_product');
+    }
+
     public function category(){
         return $this->hasOne('App\Models\Category', 'id_category','id_category');
     }

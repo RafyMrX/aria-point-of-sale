@@ -16,3 +16,4 @@ Route::get('/products',[PagesController::class, 'products'])->name('products');
 // transaksi penjualan
 Route::get('/sales',[PagesController::class, 'sales'])->name('sales');
 // transaksi penjualan
+

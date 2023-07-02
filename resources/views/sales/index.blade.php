@@ -18,18 +18,18 @@
 <div class="card-body">
 {{-- CONTENT LIVEWIRE --}}
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation" wire:ignore>
+    <li class="nav-item" role="presentation" >
       <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Transaksi</button>
     </li>
-    <li class="nav-item" role="presentation" wire:ignore>
+    <li class="nav-item" role="presentation" >
       <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Data Penjualan</button>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" wire:ignore.self>
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         @livewire('sales.pos')
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" wire:ignore.self>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         @livewire('sales.show')
     </div>
 

@@ -2,28 +2,21 @@
     <div>
         @include('livewire.sales.modal') 
      
-        {{-- DATA TABLE --}}
-        {{ $from }} {{ $to }}
-        <form>
-        <div class="row mt-3">
-          <div class="col-md-2">
+        {{-- DATA TABLE --}}       
+          <p class="font-weight-bold mt-3">Filter Tanggal Transaksi</p>
+          <div class="row">
+            <div class="col-md-2">
             
-                <label>Filter Tanggal Transaksi</label>
+                <span>From :</span>
                 <input wire:model='from' type="date" class="form-control d-inline" value="">
           </div>
           
           <div class="col-md-2">
-            <label class="text-white">:</label>
+            <span>To :</span>
             <input wire:model='to' type="date" class="form-control d-inline" value="">
           </div>
-
-          <div class="col-md-2">
-            <label class="text-white">.</label>
-            <button class="btn btn-info d-block">Cari</button>
-          </div>
-
         </div>
-      </form>
+  
 
 
 
@@ -92,7 +85,6 @@
             <i class="fa fa-arrow-down {{ $sortColumnName === 'total' && $sortDirection === 'desc' ? '' : 'text-dark' }}"></i>
           </span>
         </th>
-
         <th>Status</th>
         <th>Aksi</th>
       </tr>
@@ -102,7 +94,7 @@
 
       <tr>
         <td  class="align-middle">{{ $sales->firstItem() + $index}}.</td>
-        <td class="align-middle">{{ $item->date_sale }}</td>
+        <td class="align-middle">{{ \Carbon\Carbon::parse($item->date_sale)->format('d-m-Y') }}</td>
         <td class="align-middle">{{ $item->sale_id }}</td>
         <td class="align-middle">{{ $item->retail_id }}</td>
         <td class="align-middle">{{ $item->name_retail }}</td>
@@ -119,6 +111,7 @@
         
         
         </td>
+      
         <td class="align-middle">
           <button data-toggle="modal" data-target="#updateretailmodal" wire:click='cetak()' type="submit" class="btn btn-secondary"><i class="fa fa-print" aria-hidden="true"></i>  Cetak</button>
           <button data-toggle="modal" data-target="#detailSalesmodal" wire:click='detailSales({{ $item->id }})' type="submit" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i>  Detail </button>
@@ -126,7 +119,7 @@
       </tr>
       @empty
       <tr class="text-center">
-        <td colspan="9">
+        <td colspan="10">
             <img src="https://www.hyperyno.com/front/img/no-result-found.png" alt="No results found" width="170">
             {{-- <p class="mt-2">Tidak ada data ditemukan</p> --}}
         </td>

@@ -43,7 +43,7 @@ color: #fff;">
 <script src="{{ url('/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ url('/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 <script src="{{url('plugins/summernote/summernote-bs4.min.js')}}"></script>
-
+<script src="{{ url('dist/js/select2.min.js') }}"></script>
 <script>
 
 // preview image 

@@ -143,7 +143,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="retailmodalLabel">Detail Sales</h5>
+                <h5 class="modal-title" id="retailmodalLabel">Detail Penjualan</h5>
                 <button wire:click='cancel' type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -162,9 +162,9 @@
 
                         <div class="page-tools">
                             <div class="action-buttons">
-                                <a class="btn btn-info mx-1px text-95" href="#" data-title="Print">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    Download
+                                <a class="btn btn-secondary mx-1px text-95" href="#" data-title="Print">
+                                    <i class="fa fa-print" aria-hidden="true"></i>
+                                    Cetak
                                 </a>
                             </div>
                         </div>
@@ -177,7 +177,10 @@
                                 <!-- .row -->
 
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-md-3 border-right">
+                                        <div class="mt-1 mb-2 text-gray  text-600 text-125">
+                                            Informasi Retail
+                                        </div>
                                         <div>
                                             <span class="text-sm text-grey-m2 align-middle">Kepada:</span>
                                             <span class="text-600 text-110 align-middle text-secondary-d1">{{ $retailName }}</span>
@@ -193,22 +196,23 @@
                                                 Email: {{ $retailEmail }}
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- /.col -->
-
-                                    <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                                        <hr class="d-sm-none" />
+                                        <hr>
                                         <div class="text-grey-m2">
                                             <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                                Invoice
+                                                Informasi Nota
                                             </div>
 
                                             <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
                                                 <span class="text-600 text-90">ID:</span> {{ $idSale }}
                                             </div>
-
                                             <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
-                                                <span class="text-600 text-90">Tanggal:</span> {{ $dateSale }}
+                                                <span class="text-600 text-90">Kasir:</span> {{ $nameAdmin }}
+                                            </div>
+                                            <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
+                                                <span class="text-600 text-90">Tanggal: </span>{{ \Carbon\Carbon::parse($dateSale )->format("d F Y")  }}
+                                            </div>
+                                            <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
+                                                <span class="text-600 text-90">Jam: </span>{{ \Carbon\Carbon::parse($dateSale )->format("H:i")  }} WIB
                                             </div>
 
                                             <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
@@ -224,64 +228,63 @@
                                                 @endif
                                             </div>
                                             <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
-                                                <span class="text-600 text-90">Kasir:</span> {{ $nameAdmin }}
+                                                <span class="text-600 text-90">Keterangan:</span> {{ $comment }}
                                             </div>
+                                            
                                         </div>
                                     </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-9">
+                                        <h5>Produk terjual</h5>
+                                        
+                                        <table class="table table-sm ">
+                                            <thead style="background-color: #f6f6f6;">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Kode Produk</th>
+                                                    <th>Nama Produk</th>
+                                                    <th>Qty</th>
+                                                    <th>Satuan</th>
+                                                    <th>Harga</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $subtotal = 0;
+                                                @endphp
+                                                @foreach ($data as $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->pid }}</td>
+                                                    <td>{{ $item->nameP }}</td>
+                                                    <td>{{ $item->qty }}</td>
+                                                    <td>{{ $item->satuan }}</td>
+                                                    <td>{{ number_format($item->hargaJual, 0, ',', '.')  }}</td>
+                                                    <td>{{ number_format( $item->hargaJual * $item->qty , 0, ',', '.') }}</td>
+                                                </tr>
+                                                @php
+                                                    $sub= $item->hargaJual * $item->qty;
+                                                    $subtotal += $sub;
+                                                @endphp
+                                                @endforeach
+                                        
+    
+                                                <tr>
+                                                    <td colspan="5" style="border: none; background-color:#f6f6f6;"></td>
+                                                    <td class="font-weight-bold" style="background-color: #c6c6c6">Grand Total</td>
+                                                    <td style="background-color: #c1f5c2;
+                                                    font-weight: bold;">Rp.{{ number_format($total, 0, ',', '.') }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <!-- /.col -->
                                 </div>
 
                                 <div class="mt-4">
-                                    <table class="table table-sm ">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Kode Produk</th>
-                                                <th>Nama Produk</th>
-                                                <th>Qty</th>
-                                                <th>Satuan</th>
-                                                <th>Harga</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $subtotal = 0;
-                                            @endphp
-                                            @foreach ($data as $item)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->pid }}</td>
-                                                <td>{{ $item->nameP }}</td>
-                                                <td>{{ $item->qty }}</td>
-                                                <td>{{ $item->satuan }}</td>
-                                                <td>{{ number_format($item->hargaJual, 0, ',', '.')  }}</td>
-                                                <td>{{ number_format( $item->hargaJual * $item->qty , 0, ',', '.') }}</td>
-                                            </tr>
-                                            @php
-                                                $sub= $item->hargaJual * $item->qty;
-                                                $subtotal += $sub;
-                                            @endphp
-                                            @endforeach
                                     
-
-                                            <tr>
-                                                <td colspan="5" style="border: none; background-color:#f6f6f6;"></td>
-                                                <td class="font-weight-bold">Subtotal</td>
-                                                <td>Rp.{{ number_format($total, 0, ',', '.') }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5" style="border: none;background-color:#f6f6f6;"></td>
-                                                <td class="font-weight-bold">Discount(%)</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5" style="border: none;background-color:#f6f6f6;"></td>
-                                                <td class="font-weight-bold">Grand Total</td>
-                                                <td>Rp.{{ number_format($total, 0, ',', '.') }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
 
 
                                     <div class="row border-b-2 brc-default-l2"></div>
