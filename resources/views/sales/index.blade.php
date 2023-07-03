@@ -56,6 +56,21 @@
       })
     });  
 
+    window.addEventListener('swalOrder', function(e) {
+      Swal.fire({
+        title: e.detail.data,
+        icon: 'success',
+         showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,  
+      })
+      const myTimeout = setTimeout(myGreeting, 1000);
+      function myGreeting() {
+        window.location.reload();
+      }
+
+    });  
+
     window.addEventListener('confirm-delete-dialog', event => {
        Swal.fire({
         title: 'Apakah anda yakin ?',

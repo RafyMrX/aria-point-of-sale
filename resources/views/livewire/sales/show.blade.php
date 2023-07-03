@@ -47,7 +47,7 @@
                 </div>
                 <div class="btn-group">
                 
-              <x-search-input placeholder="Cari kode retail, nama"  wire:model='searchTerm'/>
+              <x-search-input placeholder="Nota, kode retail, nama"  wire:model='searchTerm'/>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
 
       <tr>
         <td  class="align-middle">{{ $sales->firstItem() + $index}}.</td>
-        <td class="align-middle">{{ \Carbon\Carbon::parse($item->date_sale)->format('d-m-Y') }}</td>
+        <td class="align-middle">{{ \Carbon\Carbon::parse($item->date_sale)->format('d-F-Y') }}</td>
         <td class="align-middle">{{ $item->sale_id }}</td>
         <td class="align-middle">{{ $item->retail_id }}</td>
         <td class="align-middle">{{ $item->name_retail }}</td>
@@ -113,7 +113,10 @@
         </td>
       
         <td class="align-middle">
-          <button data-toggle="modal" data-target="#updateretailmodal" wire:click='cetak()' type="submit" class="btn btn-secondary"><i class="fa fa-print" aria-hidden="true"></i>  Cetak</button>
+          <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$item->id)}}" target="_blank" data-title="Print">
+            <i class="fa fa-print" aria-hidden="true"></i>
+            Cetak
+        </a>
           <button data-toggle="modal" data-target="#detailSalesmodal" wire:click='detailSales({{ $item->id }})' type="submit" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i>  Detail </button>
         </td>
       </tr>

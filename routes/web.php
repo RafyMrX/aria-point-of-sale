@@ -15,5 +15,9 @@ Route::get('/categories',[PagesController::class, 'categories'])->name('categori
 Route::get('/products',[PagesController::class, 'products'])->name('products');
 // transaksi penjualan
 Route::get('/sales',[PagesController::class, 'sales'])->name('sales');
-// transaksi penjualan
+Route::get('/exportsales/{id}',[PagesController::class, 'salespdf'])->name('salespdf');
+// retur penjualan
+Route::get('/sales/retur',[PagesController::class, 'returSales'])->name('retur.sales');
+// transaksi pembelian 
+// retur pembelian
 

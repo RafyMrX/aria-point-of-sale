@@ -28,7 +28,7 @@ class Sale extends Model
       $tz = 'Asia/Jakarta';   
       $date_time_Obj = date_create(date('Y-m-d'), new DateTimeZone($tz));
     //formatting the date to print it
-     $format = date_format($date_time_Obj, "d-m-Y");
+     $format = date_format($date_time_Obj, "d-F-Y");
 
      return $format;
     }

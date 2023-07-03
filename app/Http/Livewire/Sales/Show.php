@@ -171,6 +171,7 @@ class Show extends Component
             ->join('users', 'users.id_user', '=', 'detail_sales.id_user')
             ->having('name_retail', 'LIKE', '%'.$this->searchTerm.'%')
             ->orhaving('retail_id', 'LIKE', '%'.$this->searchTerm.'%')
+            ->orhaving('sale_id', 'LIKE', '%'.$this->searchTerm.'%')
             // ->where('id_sale', 'LIKE', '%'.$this->searchTerm.'%')
             ->groupBy('sales.id','sales.id_sale', 'sales.date_sale','retails.id_retail', 'retails.name', 'sales.total','sales.status','sales.created_at','users.name', 'sales.comment')
         //    ->orWhere('', 'LIKE', '%'.$this->searchTerm.'%')

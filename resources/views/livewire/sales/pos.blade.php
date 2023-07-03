@@ -11,7 +11,9 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td class="font-weight-bold align-middle">Invoice</td>
-                                    <td><input wire:model='kode_sales' type="text" class="form-control" readonly></td>
+                                    <td>
+                                        <input wire:model='kode_sales' type="text" class="form-control" readonly>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold align-middle">Tanggal</td>

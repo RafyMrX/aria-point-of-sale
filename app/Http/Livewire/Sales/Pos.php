@@ -197,7 +197,7 @@ class Pos extends Component
         Cart::where('id_user', $id_user)->delete();
 
         $this->reset(['kode_sales', 'status', 'comment','id_retail']);
-        $this->dispatchBrowserEvent('swal',['data' => 'Transaksi berhasil']);
+        $this->dispatchBrowserEvent('swalOrder',['data' => 'Transaksi berhasil']);
     }
 
     public function resetInput(){

@@ -162,7 +162,7 @@
 
                         <div class="page-tools">
                             <div class="action-buttons">
-                                <a class="btn btn-secondary mx-1px text-95" href="#" data-title="Print">
+                                <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$id_detail)}}" target="_blank" data-title="Print">
                                     <i class="fa fa-print" aria-hidden="true"></i>
                                     Cetak
                                 </a>
