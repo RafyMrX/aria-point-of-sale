@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Transaksi Penjualan')
+@section('title', 'Retur Penjualan')
 {{-- @section('page-title', 'Data Supplier') --}}
 @push('styles')
     @livewireStyles
@@ -12,26 +12,21 @@
 @section('content')
 <div class="card card-light">
     <div class="card-header">
-        <h4>Transaksi Penjualan</h4>
+        <h4>Retur Penjualan</h4>
     </div>
     <!-- /.card-header -->
 <div class="card-body">
 {{-- CONTENT LIVEWIRE --}}
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation" >
-      <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Transaksi Penjualan</button>
-    </li>
-    <li class="nav-item" role="presentation" >
-      <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Data Penjualan</button>
+      <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Retur</button>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        @livewire('sales.pos')
+        @livewire('retur.pos')
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        @livewire('sales.show')
-    </div>
+  
 
   </div>
 
@@ -40,10 +35,7 @@
 </div>
 @push('scripts')
   <script>
-     window.addEventListener('close-modal', function(e) {
-      $('#productmodal').modal('hide');
-      $('#updateproductmodal').modal('hide');
-     });
+
     window.addEventListener('swal', function(e) {
       Swal.fire({
         title: e.detail.data,
@@ -56,20 +48,7 @@
       })
     });  
 
-    window.addEventListener('swalOrder', function(e) {
-      Swal.fire({
-        title: e.detail.data,
-        icon: 'success',
-         showConfirmButton: false,
-        timer: 1000,
-        timerProgressBar: true,  
-      })
-      const myTimeout = setTimeout(myGreeting, 1000);
-      function myGreeting() {
-        window.location.reload();
-      }
 
-    });  
 
     window.addEventListener('confirm-delete-dialog', event => {
        Swal.fire({

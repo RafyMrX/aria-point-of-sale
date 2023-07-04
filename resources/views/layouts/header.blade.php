@@ -222,7 +222,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
+                                    <a href="{{ url('/sales-retur') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Retur Penjualan</p>
                                     </a>
@@ -271,28 +271,15 @@
                                 <li class="nav-item">
                                     <a href="{{ url('/data-kriteria') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
-                                        <p>Lap Pembelian</p>
+                                        <p>Lap Penjualan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('/data-kriteria') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
-                                        <p>Lap Penjualan</p>
+                                        <p>Lap Pembelian</p>
                                     </a>
-                                </li>   
-                                <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-info"></i>
-                                        <p>Lap Retur Pembelian</p>
-                                    </a>
-                                </li>   
-                                <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-info"></i>
-                                        <p>Lap Retur Penjualan</p>
-                                    </a>
-                                </li>   
-          
+                                </li>         
                               
                             </ul>
                         </li>

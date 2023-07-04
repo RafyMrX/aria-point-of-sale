@@ -14,6 +14,10 @@ class Product extends Model
         return $this->hasMany('App\Models\Cart', 'id_product','id_product');
     }
 
+    public function DetailSale(){
+        return $this->hasMany('App\Models\DetailSale', 'id_product','id_product');
+    }
+
     public function category(){
         return $this->hasOne('App\Models\Category', 'id_category','id_category');
     }

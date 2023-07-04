@@ -98,8 +98,21 @@
         <td class="align-middle">{{ $item->sale_id }}</td>
         <td class="align-middle">{{ $item->retail_id }}</td>
         <td class="align-middle">{{ $item->name_retail }}</td>
-        <td class="align-middle">{{ $item->totalqty }}</td>
-        <td class="align-middle">Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
+        <td class="align-middle">
+          @if($item->total_retur < 1)
+          {{ $item->totalqty }} 
+          @else
+          {{ $item->totalqty-$item->qtyretur }} <sup class="text-red @if($item->total_retur < 1) d-none @endif" style="font-size: 11pt; font-weight:bold;">-{{ $item->qtyretur }}</sup>
+          @endif
+        </td>
+        <td class="align-middle">
+        @if($item->total_retur < 1)
+        Rp. {{ number_format($item->total, 0, ',', '.') }}
+        @else
+        Rp. {{ number_format($item->total_retur, 0, ',', '.') }} <sup class="text-red @if($item->total_retur < 1) d-none @endif" style="font-size: 11pt; font-weight:bold;">-{{  number_format($item->jml_retur, 0, ',', '.') }}</sup>
+        @endif
+        
+        </td>
         <td class="align-middle">
           <div class="custom-control custom-switch">
             <input wire:change='switchStatus({{ $item->id}}, {{ $item->status }})' type="checkbox" class="custom-control-input" @checked($item->status == 1) id="{{ $item->sale_id }}">
@@ -113,10 +126,17 @@
         </td>
       
         <td class="align-middle">
+          @if($item->total_retur < 1)
           <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$item->id)}}" target="_blank" data-title="Print">
             <i class="fa fa-print" aria-hidden="true"></i>
             Cetak
         </a>
+        @else
+        <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsalesretur/'.$item->id)}}" target="_blank" data-title="Print">
+          <i class="fa fa-print" aria-hidden="true"></i>
+          Cetak
+      </a>
+        @endif
           <button data-toggle="modal" data-target="#detailSalesmodal" wire:click='detailSales({{ $item->id }})' type="submit" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i>  Detail </button>
         </td>
       </tr>

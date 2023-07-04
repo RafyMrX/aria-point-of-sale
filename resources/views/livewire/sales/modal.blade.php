@@ -162,10 +162,17 @@
 
                         <div class="page-tools">
                             <div class="action-buttons">
+                                @if($stRetur < 1)
                                 <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$id_detail)}}" target="_blank" data-title="Print">
-                                    <i class="fa fa-print" aria-hidden="true"></i>
-                                    Cetak
-                                </a>
+                                  <i class="fa fa-print" aria-hidden="true"></i>
+                                  Cetak
+                              </a>
+                              @else
+                              <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsalesretur/'.$id_detail)}}" target="_blank" data-title="Print">
+                                <i class="fa fa-print" aria-hidden="true"></i>
+                                Cetak
+                            </a>
+                              @endif
                             </div>
                         </div>
                     </div>
@@ -236,16 +243,16 @@
                                     <!-- /.col -->
                                     <div class="col-md-9">
                                         <h5>Produk terjual</h5>
-                                        
+                                        @if($stRetur < 1)
                                         <table class="table table-sm ">
                                             <thead style="background-color: #f6f6f6;">
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Kode Produk</th>
                                                     <th>Nama Produk</th>
-                                                    <th>Qty</th>
                                                     <th>Satuan</th>
                                                     <th>Harga</th>
+                                                    <th>Qty</th>
                                                     <th>Subtotal</th>
                                                 </tr>
                                             </thead>
@@ -258,9 +265,9 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->pid }}</td>
                                                     <td>{{ $item->nameP }}</td>
-                                                    <td>{{ $item->qty }}</td>
                                                     <td>{{ $item->satuan }}</td>
                                                     <td>{{ number_format($item->hargaJual, 0, ',', '.')  }}</td>
+                                                    <td>{{ $item->qty }}</td>
                                                     <td>{{ number_format( $item->hargaJual * $item->qty , 0, ',', '.') }}</td>
                                                 </tr>
                                                 @php
@@ -278,6 +285,63 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        @else
+                                        <table class="table table-sm ">
+                                            <thead style="background-color: #f6f6f6;">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Kode Produk </th>
+                                                    <th>Nama Produk</th>
+                                                    <th>Satuan</th>
+                                                    <th>Harga</th>
+                                                    <th class="text-center">Jumlah Penjualan</th>
+                                                    <th>Total Penjualan</th>
+                                                    <th class="text-center border-left">Jumlah Retur</th>
+                                                    <th>Total Retur</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $subtotal = 0;
+                                                    $subtotal_retur = 0;
+                                                @endphp
+                                                @foreach ($data as $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->pid }}</td>
+                                                    <td>{{ $item->nameP }}</td>
+                                                    <td>{{ $item->satuan }}</td>
+                                                    <td>{{ number_format($item->hargaJual, 0, ',', '.')  }}</td>
+                                                    <td class="text-center">{{ $item->qty }}</td>
+                                                    <td class="text-orange">{{ number_format( $item->hargaJual * $item->qty , 0, ',', '.') }}</td>
+                                                    <td class="text-center border-left">{{ $item->qty_retur }}</td>
+                                                    <td class="text-danger">-{{ number_format( $item->hargaJual * $item->qty_retur , 0, ',', '.') }}</td>
+                                                   
+                                                </tr>
+                                                @php
+                                                $sub = $item->hargaJual * $item->qty;
+                                                $subtotal += $sub;
+                                                $subr = $item->hargaJual * $item->qty_retur;
+                                                $subtotal_retur += $subr;
+                                                @endphp 
+                                                @endforeach
+                                                
+                                                <tr>
+                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Penjualan</td>
+                                                    <td colspan="7" class="bg-orange font-weight-bold">Rp.{{ number_format( $subtotal, 0, ',', '.') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="7" class="font-weight-bold" style="background-color: #c6c6c6">Subtotal Retur</td>
+                                                    <td colspan="7" class="bg-danger font-weight-bold">Rp. -{{ number_format( $subtotal_retur, 0, ',', '.') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6">Grand Total</td>
+                                                    <td colspan="2" class="bg-success font-weight-bold">Rp. {{ number_format( $subtotal - $subtotal_retur, 0, ',', '.') }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        @endif
+
                                     </div>
 
                                     <!-- /.col -->
@@ -289,33 +353,7 @@
 
                                     <div class="row border-b-2 brc-default-l2"></div>
 
-                                    <!-- or use a table instead -->
-                                    <!--
-                        <div class="table-responsive">
-                            <table class="table table-striped table-borderless border-0 border-b-2 brc-default-l1">
-                                <thead class="bg-none bgc-default-tp1">
-                                    <tr class="text-white">
-                                        <th class="opacity-2">#</th>
-                                        <th>Description</th>
-                                        <th>Qty</th>
-                                        <th>Unit Price</th>
-                                        <th width="140">Amount</th>
-                                    </tr>
-                                </thead>
-            
-                                <tbody class="text-95 text-secondary-d3">
-                                    <tr></tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Domain registration</td>
-                                        <td>2</td>
-                                        <td class="text-95">$10</td>
-                                        <td class="text-secondary-d2">$20</td>
-                                    </tr> 
-                                </tbody>
-                            </table>
-                        </div>
-                        -->
+    
 
                                     <div class="row mt-3">
                                         <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
