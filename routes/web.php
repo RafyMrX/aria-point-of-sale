@@ -21,7 +21,10 @@ Route::get('/sales-retur',[PagesController::class, 'retursales'])->name('retur.s
 
 Route::get('/exportsalesretur/{id}',[PagesController::class, 'returpdf']);
 
-
 // transaksi pembelian 
 // retur pembelian
+
+
+Route::get('/sales/reports',[PagesController::class, 'reportSales'])->name('sales.report');
+
 

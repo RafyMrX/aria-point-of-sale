@@ -102,8 +102,11 @@
                         @php
                             $subtotal = 0;
                             $subtotal_retur = 0;
+                            $submodal = 0;
+                            $bersih = 0;
                         @endphp
                         @forelse ($sales as $item)
+                        @if($item->sale['total_retur'] < 1)
                         <tr>
                             <td class="align-middle">{{ $loop->iteration }}</td>
                             <td class="align-middle">{{ $item->id_product }}</td>
@@ -137,11 +140,22 @@
                             <td class="align-middle text-danger font-weight-bold">-{{ number_format( $item->selling_price * $item->qty_retur , 0, ',', '.') }}</td>
 
                         </tr>
+                        @else
+                            <tr>
+                                <td colspan="9" class="font-weight-bold text-red pd-5 text-center">NOTA ATAU PENJUALAN INI SUDAH DI RETUR TIDAK DAPAT DIUBAH!</td>
+                            </tr>
+                            @break
+                        @endif
                         @php
                         $sub = $item->selling_price * $item->qty;
                         $subtotal += $sub;
                         $subr = $item->selling_price * $item->qty_retur;
                         $subtotal_retur += $subr;
+
+                        $mod = $item->capital_price * $item->qty;
+                        $submodal += $mod;
+
+                       $bersih = $subtotal-$subtotal_retur-$submodal;
                     @endphp 
                         @empty
                             <tr>
@@ -152,6 +166,7 @@
                          
                         </tbody>
                     </table>
+       
                     <div class="row">
                         <div class="col-md-6 ">
                             {{-- <div class="alert alert-warning alert-dismissible fade show" role="alert"
@@ -164,6 +179,7 @@
                             {{-- <textarea wire:model='comment' rows="4" class="form-control" placeholder="Keterangan"></textarea> --}}
                         </div>
                         <div class="col-md-6">
+                        
                             <table class="table table-striped table-sm">
                                 <tr>
                                     <td class="font-weight-bold">Subtotal Penjualan</td>
@@ -200,7 +216,7 @@
                     {{-- ADMIN --}}
                                 <button type="button" wire:click="resetButton('{{ $idSale }}')" type="button" class="btn btn-danger btn-lg mr-2" @if($subtotal_retur < 1) disabled @endif><i class="fa fa-refresh"
                                         aria-hidden="true"></i> Reset</button>
-                                <button wire:click="retur('{{ $idSale }}','{{ $subtotal_retur }}','{{ $subtotal }}')"  type="button" class="btn btn-primary btn-lg" @if($subtotal_retur < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true"></i> Buat
+                                <button wire:click="retur('{{ $idSale }}','{{ $subtotal_retur }}','{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}')"  type="button" class="btn btn-primary btn-lg" @if($subtotal_retur < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true"></i> Buat
                                     Transaksi</button>
                             </div>
                         </div>

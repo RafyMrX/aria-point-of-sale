@@ -157,7 +157,7 @@ class Pos extends Component
         $this->dispatchBrowserEvent('swal',['data' => 'Berhasil Reset Data!']);
     }
 
-    public function order($id_user, $subtotal){
+    public function order($id_user, $subtotal, $bersih, $submodal){
         $this->validate();
         $carts = Cart::where('id_user', $id_user);
     
@@ -168,6 +168,8 @@ class Pos extends Component
             'id_sale' => $this->kode_sales,
             'total' => $subtotal,
             'total_diskon' => 0,
+            'total_bersih' => $bersih,
+            'total_modal' => $submodal,
             'diskon' => 0,
             'date_sale' => date('Y-m-d H:i:s'),
             'status' => $this->status,

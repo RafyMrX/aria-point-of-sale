@@ -293,10 +293,11 @@
                                                     <th>Kode Produk </th>
                                                     <th>Nama Produk</th>
                                                     <th>Satuan</th>
+                                                    {{-- <th>modal</th> --}}
                                                     <th>Harga</th>
-                                                    <th class="text-center">Jumlah Penjualan</th>
+                                                    <th class="text-center">Qty Penjualan</th>
                                                     <th>Total Penjualan</th>
-                                                    <th class="text-center border-left">Jumlah Retur</th>
+                                                    <th class="text-center border-left">Qty Retur</th>
                                                     <th>Total Retur</th>
                                                 </tr>
                                             </thead>
@@ -304,6 +305,7 @@
                                                 @php
                                                     $subtotal = 0;
                                                     $subtotal_retur = 0;
+                                                    // $modal = 0;
                                                 @endphp
                                                 @foreach ($data as $item)
                                                 <tr>
@@ -311,10 +313,12 @@
                                                     <td>{{ $item->pid }}</td>
                                                     <td>{{ $item->nameP }}</td>
                                                     <td>{{ $item->satuan }}</td>
+                                                    {{-- <td>{{ number_format($item->hargamodal, 0, ',', '.')  }}</td> --}}
                                                     <td>{{ number_format($item->hargaJual, 0, ',', '.')  }}</td>
                                                     <td class="text-center">{{ $item->qty }}</td>
                                                     <td class="text-orange">{{ number_format( $item->hargaJual * $item->qty , 0, ',', '.') }}</td>
-                                                    <td class="text-center border-left">{{ $item->qty_retur }}</td>
+
+                                                    <td class="text-center border-left" style="background-color: ">{{ $item->qty_retur }}</td>
                                                     <td class="text-danger">-{{ number_format( $item->hargaJual * $item->qty_retur , 0, ',', '.') }}</td>
                                                    
                                                 </tr>
@@ -323,19 +327,22 @@
                                                 $subtotal += $sub;
                                                 $subr = $item->hargaJual * $item->qty_retur;
                                                 $subtotal_retur += $subr;
+
+                                                // $mod = $item->hargamodal * $item->qty;
+                                                // $modal += $mod;
                                                 @endphp 
                                                 @endforeach
-                                                
+                                                {{-- {{ $modal }} --}}
                                                 <tr>
-                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Penjualan</td>
+                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Penjualan <i class="text-sm">(Sp)</i></td>
                                                     <td colspan="7" class="bg-orange font-weight-bold">Rp.{{ number_format( $subtotal, 0, ',', '.') }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="7" class="font-weight-bold" style="background-color: #c6c6c6">Subtotal Retur</td>
+                                                    <td colspan="7" class="font-weight-bold" style="background-color: #c6c6c6">Subtotal Retur <i class="text-sm">(Sr)</i></td>
                                                     <td colspan="7" class="bg-danger font-weight-bold">Rp. -{{ number_format( $subtotal_retur, 0, ',', '.') }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6">Grand Total</td>
+                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6">Grand Total <span class="text-sm"><i>(Sp - Sr)</i></span></td>
                                                     <td colspan="2" class="bg-success font-weight-bold">Rp. {{ number_format( $subtotal - $subtotal_retur, 0, ',', '.') }}</td>
                                                 </tr>
                                             </tbody>

@@ -11,6 +11,11 @@ class Sale extends Model
     protected $table = "sales";
     protected $guarded = ['created_at', 'updated_at'];
 
+
+    public function DetailSale(){
+        return $this->hasMany('App\Models\DetailSale', 'id_sale','id_sale');
+    }
+
     public function admin(){
         $admin = 'amir';
         return $admin;

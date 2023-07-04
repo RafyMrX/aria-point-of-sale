@@ -116,6 +116,8 @@
                         <tbody>
                         @php
                             $subtotal = 0;
+                            $submodal = 0;
+                            $bersih = 0;
                         @endphp
                         @forelse ($carts as $item)
                         <tr>
@@ -154,7 +156,12 @@
                         @php
                         $sub = $item->selling_price * $item->qty;
                         $subtotal += $sub;
-                    @endphp
+
+                        $mod = $item->capital_price * $item->qty;
+                        $submodal += $mod;
+
+                       $bersih = $subtotal-$submodal;
+                         @endphp
                         @empty
                             <tr>
                                 <td colspan="8" class="text-center p-3 font-italic">Belum ada produk yang ditambahkan</td>
@@ -164,6 +171,7 @@
                          
                         </tbody>
                     </table>
+               
                     <div class="row">
                         <div class="col-md-6 ">
                             {{-- <div class="alert alert-warning alert-dismissible fade show" role="alert"
@@ -205,7 +213,7 @@
                     {{-- ADMIN --}}
                                 <button type="button" wire:click="resetCart('A0001')" type="button" class="btn btn-danger btn-lg mr-2" @if($statusCart < 1) disabled @endif><i class="fa fa-refresh"
                                         aria-hidden="true"></i> Reset</button>
-                                <button wire:click="order('A0001', '{{ $subtotal }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
+                                <button wire:click="order('A0001', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
                                     Transaksi</button>
                             </div>
                         </div>

@@ -14,4 +14,8 @@ class DetailSale extends Model
         return $this->belongsTo('App\Models\Product', 'id_product','id_product');
     }
 
+    public function sale(){
+        return $this->belongsTo('App\Models\Sale', 'id_sale','id_sale');
+    }
+
 }

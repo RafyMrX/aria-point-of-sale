@@ -269,7 +269,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
+                                    <a href="{{ url('/sales/reports') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Lap Penjualan</p>
                                     </a>
