@@ -75,16 +75,16 @@ class Show extends Component
      $this->resetInput();
      $this->id_detail = $id;
     
-     $sales = Sale::select('sales.id AS id','sales.date_sale AS dateSale','retails.id_retail AS retail_id','retails.name AS name_retail','sales.id_sale AS sale_id',DB::raw('sum(detail_sales.qty) AS totalqty'),'sales.total AS totalSales','sales.total_retur AS total_retur','sales.status AS status','sales.created_at', 'users.name AS admin', 'retails.address AS retailAd','retails.tlp AS retailTel','retails.email AS retailem','products.id_product AS pid', 'detail_sales.qty AS qty','detail_sales.unit AS satuan','detail_sales.selling_price AS hargaJual','products.name AS nameP', 'sales.comment AS ket')
+     $sales = Sale::select('sales.id AS id','sales.date_sale AS dateSale','retails.id_retail AS retail_id','retails.name AS name_retail','sales.id_sale AS sale_id',DB::raw('sum(detail_sales.qty) AS totalqty'),'sales.total AS totalSales','sales.total_retur AS total_retur','sales.jml_retur AS jml_retur','sales.status AS status','sales.created_at', 'users.name AS admin', 'retails.address AS retailAd','retails.tlp AS retailTel','retails.email AS retailem','products.id_product AS pid', 'detail_sales.qty AS qty','detail_sales.unit AS satuan','detail_sales.selling_price AS hargaJual','products.name AS nameP', 'sales.comment AS ket')
         ->join('detail_sales', 'detail_sales.id_sale', '=', 'sales.id_sale')
         ->join('retails', 'retails.id_retail', '=', 'detail_sales.id_retail')
         ->join('products', 'products.id_product', '=', 'detail_sales.id_product')
         ->join('users', 'users.id_user', '=', 'detail_sales.id_user')
         ->having('sales.id', $id)
-        ->groupBy('sales.total_retur','sales.id','sales.id_sale', 'sales.date_sale','retails.id_retail', 'retails.name', 'sales.total','sales.status','sales.created_at','users.name','retails.address', 'retails.tlp', 'retails.email','products.id_product','detail_sales.qty','detail_sales.unit','detail_sales.selling_price','products.name', 'sales.comment')->first();
+        ->groupBy('sales.jml_retur','sales.total_retur','sales.id','sales.id_sale', 'sales.date_sale','retails.id_retail', 'retails.name', 'sales.total','sales.status','sales.created_at','users.name','retails.address', 'retails.tlp', 'retails.email','products.id_product','detail_sales.qty','detail_sales.unit','detail_sales.selling_price','products.name', 'sales.comment')->first();
 
         if($sales){
-            $this->stRetur = $sales->total_retur;
+            $this->stRetur = $sales->jml_retur;
             $this->retailName = $sales->name_retail;
             $this->retailAddress = $sales->retailAd;
             $this->retailTlp = $sales->retailTel;

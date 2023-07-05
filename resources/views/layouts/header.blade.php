@@ -58,11 +58,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         
-                      <p> Halo, Amir <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+                      <p> Halo, {{ auth()->user()->name }}  <i class="fa fa-caret-down" aria-hidden="true"></i></p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                       <div class="dropdown-divider"></div>
-                      <form action="{{ url('/logout') }}" method="post">
+                      <form action="{{ url('/logout') }}" method="get">
                         @csrf
                         <button type="submit" class="dropdown-item"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
                       </form>

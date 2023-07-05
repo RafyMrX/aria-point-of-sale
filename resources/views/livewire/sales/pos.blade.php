@@ -20,6 +20,7 @@
                                     <td><input wire:model=date_sales type="text" class="form-control" readonly></td>
                                 </tr>
                                 <tr>
+                                    
                                     <td class="font-weight-bold align-middle">Admin</td>
                                     <td><input wire:model='nameAdmin' type="text" class="form-control" readonly></td>
                                 </tr>
@@ -211,9 +212,9 @@
                     grid-template-columns: 1fr 1fr;
                     grid-gap: 2px;">
                     {{-- ADMIN --}}
-                                <button type="button" wire:click="resetCart('A0001')" type="button" class="btn btn-danger btn-lg mr-2" @if($statusCart < 1) disabled @endif><i class="fa fa-refresh"
+                                <button type="button" wire:click="resetCart('{{ $id_user }}')" type="button" class="btn btn-danger btn-lg mr-2" @if($statusCart < 1) disabled @endif><i class="fa fa-refresh"
                                         aria-hidden="true"></i> Reset</button>
-                                <button wire:click="order('A0001', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
+                                <button wire:click="order('{{ $id_user }}', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
                                     Transaksi</button>
                             </div>
                         </div>

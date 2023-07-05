@@ -99,17 +99,17 @@
         <td class="align-middle">{{ $item->retail_id }}</td>
         <td class="align-middle">{{ $item->name_retail }}</td>
         <td class="align-middle">
-          @if($item->total_retur < 1)
+          @if($item->jml_retur < 1)
           {{ $item->totalqty }} 
           @else
-          {{ $item->totalqty-$item->qtyretur }} <sup class="text-red @if($item->total_retur < 1) d-none @endif" style="font-size: 11pt; font-weight:bold;">-{{ $item->qtyretur }}</sup>
+          {{ $item->totalqty-$item->qtyretur }} <sup class="text-red @if($item->jml_retur < 1) d-none @endif" style="font-size: 11pt; font-weight:bold;">-{{ $item->qtyretur }}</sup>
           @endif
         </td>
         <td class="align-middle">
-        @if($item->total_retur < 1)
+        @if($item->jml_retur < 1)
         Rp. {{ number_format($item->total, 0, ',', '.') }}
         @else
-        Rp. {{ number_format($item->total_retur, 0, ',', '.') }} <sup class="text-red @if($item->total_retur < 1) d-none @endif" style="font-size: 11pt; font-weight:bold;">-{{  number_format($item->jml_retur, 0, ',', '.') }}</sup>
+        Rp. {{ number_format($item->total_retur, 0, ',', '.') }} <sup class="text-red @if($item->jml_retur < 1) d-none @endif" style="font-size: 11pt; font-weight:bold;">-{{  number_format($item->jml_retur, 0, ',', '.') }}</sup>
         @endif
         
         </td>
@@ -126,7 +126,7 @@
         </td>
       
         <td class="align-middle">
-          @if($item->total_retur < 1)
+          @if($item->jml_retur < 1)
           <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$item->id)}}" target="_blank" data-title="Print">
             <i class="fa fa-print" aria-hidden="true"></i>
             Cetak

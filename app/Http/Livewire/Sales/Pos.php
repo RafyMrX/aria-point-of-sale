@@ -17,7 +17,7 @@ class Pos extends Component
     protected $listeners = ['deleteConfirmed' => 'deleteCart'];
     public $cart_id;
     // Informasi Nota
-    public $kode_sales, $date_sales, $nameAdmin, $total;
+    public $kode_sales, $date_sales, $nameAdmin,$id_user, $total;
     // informasi retail 
     public $id_retail, $status;
     // comment 
@@ -35,9 +35,10 @@ class Pos extends Component
         $this->kode_sales = $sales->kd_sale();
         $this->date_sales = $sales->dateSale();
         $this->nameAdmin = $sales->admin();
+        $this->id_user = $sales->idAdmin();
         $retails = Retail::where('status',1)->get();
         // ADMIN
-        $carts = Cart::where('id_user', 'A0001')->get();
+        $carts = Cart::where('id_user', $this->id_user)->get();
         $statusCart = Cart::where('id_user', 'A0001')->where('qty','>',0)->count();
         return view('livewire.sales.pos', compact('retails', 'carts','statusCart'));
     }
@@ -47,7 +48,7 @@ class Pos extends Component
     public function decQty($id, $id_product)
     {
         // ADMIN
-        $data = Cart::where('id', $id)->where('id_user', 'A0001')->first();
+        $data = Cart::where('id', $id)->where('id_user', $this->id_user)->first();
         if($data){
             $data->decrement('qty');
             $products = Product::where('id_product', $id_product)->first();
@@ -57,7 +58,7 @@ class Pos extends Component
     public function incQty($id, $id_product)
     {
         // ADMIN
-        $data = Cart::where('id', $id)->where('id_user', 'A0001')->first();
+        $data = Cart::where('id', $id)->where('id_user', $this->id_user)->first();
         if($data){
             $data->increment('qty');
             $products = Product::where('id_product', $id_product)->first();
@@ -99,12 +100,13 @@ class Pos extends Component
             //    cek data apakah sudah ada di cart
             $data = Cart::where('id_product', $this->searchProduk)
                 ->orWhere('barcode', $this->searchProduk)
-                ->orWhere('name', $this->searchProduk);
+                ->orWhere('name', $this->searchProduk)
+                ->where('id_user', $this->id_user);
 
             if ($data->count() < 1) {
                 Cart::create([
                     // ADMIN
-                    'id_user' => 'A0001',
+                    'id_user' => $this->id_user,
                     'id_product' => $item->id_product,
                     'barcode' => $item->barcode,
                     'name' => $item->name,

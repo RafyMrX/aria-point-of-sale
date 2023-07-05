@@ -106,7 +106,7 @@
                             $bersih = 0;
                         @endphp
                         @forelse ($sales as $item)
-                        @if($item->sale['total_retur'] < 1)
+                        @if($item->sale['jml_retur'] < 1)
                         <tr>
                             <td class="align-middle">{{ $loop->iteration }}</td>
                             <td class="align-middle">{{ $item->id_product }}</td>

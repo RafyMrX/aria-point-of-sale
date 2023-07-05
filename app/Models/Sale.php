@@ -17,8 +17,13 @@ class Sale extends Model
     }
 
     public function admin(){
-        $admin = 'amir';
+        $admin =  auth()->user()->name ;
         return $admin;
+    }
+
+    public function idAdmin(){
+        $id =  auth()->user()->id_user ;
+        return $id;
     }
 
     public function datenow(){
