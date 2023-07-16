@@ -143,7 +143,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="retailmodalLabel">Detail Penjualan</h5>
+                <h5 class="modal-title" id="retailmodalLabel">Detail Pembelian</h5>
                 <button wire:click='cancel' type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -186,7 +186,7 @@
                                 <div class="row">
                                     <div class="col-md-3 border-right">
                                         <div class="mt-1 mb-2 text-gray  text-600 text-125">
-                                            Informasi Retail
+                                            Informasi Supplier
                                         </div>
                                         <div>
                                             <span class="text-sm text-grey-m2 align-middle">Kepada:</span>
@@ -213,7 +213,7 @@
                                                 <span class="text-600 text-90">ID:</span> {{ $idSale }}
                                             </div>
                                             <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
-                                                <span class="text-600 text-90">Kasir:</span> {{ $nameAdmin }}
+                                                <span class="text-600 text-90">Admin:</span> {{ $nameAdmin }}
                                             </div>
                                             <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
                                                 <span class="text-600 text-90">Tanggal: </span>{{ \Carbon\Carbon::parse($dateSale )->format("d F Y")  }}
@@ -222,18 +222,7 @@
                                                 <span class="text-600 text-90">Jam: </span>{{ \Carbon\Carbon::parse($dateSale )->format("H:i")  }} WIB
                                             </div>
 
-                                            <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
-                                                <span class="text-600 text-90">Status:</span> 
-                                                @if($status == 2)
-                                                <span class="badge badge-warning badge-pill px-25">
-                                                    Pending
-                                                </span>
-                                                @else
-                                                <span class="badge badge-success badge-pill px-25">
-                                                    Closing
-                                                </span>
-                                                @endif
-                                            </div>
+                                     
                                             <div class="my-2"><i class="fa fa-circle  text-xs mr-1"></i>
                                                 <span class="text-600 text-90">Keterangan:</span> {{ $comment }}
                                             </div>
@@ -242,7 +231,7 @@
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-md-9">
-                                        <h5>Produk terjual</h5>
+                                        <h5>Produk terbeli</h5>
                                         @if($stRetur < 1)
                                         <table class="table table-sm ">
                                             <thead style="background-color: #f6f6f6;">
@@ -266,12 +255,12 @@
                                                     <td>{{ $item->pid }}</td>
                                                     <td>{{ $item->nameP }}</td>
                                                     <td>{{ $item->satuan }}</td>
-                                                    <td>{{ number_format($item->hargaJual, 0, ',', '.')  }}</td>
+                                                    <td>{{ number_format($item->hargamodal, 0, ',', '.')  }}</td>
                                                     <td>{{ $item->qty }}</td>
-                                                    <td>{{ number_format( $item->hargaJual * $item->qty , 0, ',', '.') }}</td>
+                                                    <td>{{ number_format( $item->hargamodal * $item->qty , 0, ',', '.') }}</td>
                                                 </tr>
                                                 @php
-                                                    $sub= $item->hargaJual * $item->qty;
+                                                    $sub= $item->hargamodal * $item->qty;
                                                     $subtotal += $sub;
                                                 @endphp
                                                 @endforeach
@@ -281,7 +270,7 @@
                                                     <td colspan="5" style="border: none; background-color:#f6f6f6;"></td>
                                                     <td class="font-weight-bold" style="background-color: #c6c6c6">Grand Total</td>
                                                     <td style="background-color: #c1f5c2;
-                                                    font-weight: bold;">Rp.{{ number_format($total, 0, ',', '.') }}</td>
+                                                    font-weight: bold;">Rp.{{ number_format($subtotal, 0, ',', '.') }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -295,8 +284,8 @@
                                                     <th>Satuan</th>
                                                     {{-- <th>modal</th> --}}
                                                     <th>Harga</th>
-                                                    <th class="text-center">Qty Penjualan</th>
-                                                    <th>Total Penjualan</th>
+                                                    <th class="text-center">Qty Pembelian</th>
+                                                    <th>Total Pembelian</th>
                                                     <th class="text-center border-left">Qty Retur</th>
                                                     <th>Total Retur</th>
                                                     {{-- <th>Aksi</th> --}}
@@ -315,24 +304,20 @@
                                                     <td>{{ $item->nameP }}</td>
                                                     <td>{{ $item->satuan }}</td>
                                                     {{-- <td>{{ number_format($item->hargamodal, 0, ',', '.')  }}</td> --}}
-                                                    <td>{{ number_format($item->hargaJual, 0, ',', '.')  }}</td>
+                                                    <td>{{ number_format($item->hargamodal, 0, ',', '.')  }}</td>
                                                     <td class="text-center">
-                                                        @if($stEdit === $index)
-                                                        <input type="number" wire:model.debounce.600ms='editJ.{{ $item->idD }}' style="width: 50px;">
-                                                        @else
+                                                    
                                                         {{ $item->qty }}
-                                                        @endif
+                                               
                                                     </td>
-                                                    <td class="text-orange">{{ number_format( $item->hargaJual * $item->qty , 0, ',', '.') }}</td>
+                                                    <td class="text-orange">{{ number_format( $item->hargamodal * $item->qty , 0, ',', '.') }}</td>
 
                                                     <td class="text-center">
-                                                        @if($stEdit === $index)
-                                                        <input type="number" wire:model.debounce.600ms='editR.{{ $item->idD }}' style="width: 50px;">
-                                                        @else
+                                              
                                                         {{ $item->qty_retur }}
-                                                        @endif
+                                           
                                                     </td>
-                                                    <td class="text-danger">-{{ number_format( $item->hargaJual * $item->qty_retur , 0, ',', '.') }}</td>
+                                                    <td class="text-danger">-{{ number_format( $item->hargamodal * $item->qty_retur , 0, ',', '.') }}</td>
                                                     {{-- @if($stEdit === $index)
                                                     <td class="text-center border-left"><button wire:click="editD('{{ $editqty }}','{{ $editqtyr }}','{{ $editindex }}')" type="button" class="btn btn-success">Simpan</button></td>
                                                     @else
@@ -342,9 +327,9 @@
                                                    
                                                 </tr>
                                                 @php
-                                                $sub = $item->hargaJual * $item->qty;
+                                                $sub = $item->hargamodal * $item->qty;
                                                 $subtotal += $sub;
-                                                $subr = $item->hargaJual * $item->qty_retur;
+                                                $subr = $item->hargamodal * $item->qty_retur;
                                                 $subtotal_retur += $subr;
 
                                                 // $mod = $item->hargamodal * $item->qty;
@@ -353,7 +338,7 @@
                                                 @endforeach
                                                 {{-- {{ $modal }} --}}
                                                 <tr>
-                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Penjualan <i class="text-sm">(Sp)</i></td>
+                                                    <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Pembelian <i class="text-sm">(Sp)</i></td>
                                                     <td colspan="7" class="bg-orange font-weight-bold">Rp.{{ number_format( $subtotal, 0, ',', '.') }}</td>
                                                 </tr>
                                                 <tr>
@@ -367,7 +352,6 @@
                                             </tbody>
                                         </table>
                                         @endif
-
                                     </div>
 
                                     <!-- /.col -->

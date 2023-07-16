@@ -126,18 +126,21 @@
         </td>
       
         <td class="align-middle">
+          {{-- <a class="btn btn-warning mx-1px text-95" href="{{url('/sales-retur/'.$item->id)}}">
+            <i class="fa fa-edit" aria-hidden="true"></i>
+        </a> --}}
           @if($item->jml_retur < 1)
           <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$item->id)}}" target="_blank" data-title="Print">
             <i class="fa fa-print" aria-hidden="true"></i>
-            Cetak
+          
         </a>
         @else
         <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsalesretur/'.$item->id)}}" target="_blank" data-title="Print">
           <i class="fa fa-print" aria-hidden="true"></i>
-          Cetak
+        
       </a>
         @endif
-          <button data-toggle="modal" data-target="#detailSalesmodal" wire:click='detailSales({{ $item->id }})' type="submit" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i>  Detail </button>
+          <button data-toggle="modal" data-target="#detailSalesmodal" wire:click='detailSales({{ $item->id }})' type="submit" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i>  </button>
         </td>
       </tr>
       @empty

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Data Katgeori')
+@section('title', 'Retur Penjualan')
 {{-- @section('page-title', 'Data Supplier') --}}
 @push('styles')
     @livewireStyles
@@ -12,33 +12,47 @@
 @section('content')
 <div class="card card-light">
     <div class="card-header">
-        <h4>Data Kategori</h4>
+        <h4>Retur Pembelian</h4>
     </div>
     <!-- /.card-header -->
 <div class="card-body">
-{{-- CONTENT LIVE WIRE --}}
+{{-- CONTENT LIVEWIRE --}}
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation" >
+      <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Retur</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        @livewire('retur-pur.pos')
+    </div>
+  
 
-        @livewire('categories.show')
+  </div>
+
 
 </div>
 </div>
 @push('scripts')
   <script>
-     window.addEventListener('close-modal', function(e) {
-      $('#categorymodal').modal('hide');
-      $('#updatecategorymodal').modal('hide');
-     });
+
     window.addEventListener('swal', function(e) {
       Swal.fire({
         title: e.detail.data,
         icon: 'success',
-        toast: true,
-         position: 'top-right',
          showConfirmButton: false,
-        timer: 3000,
+        timer: 2000,
         timerProgressBar: true,  
       })
+
+      const myTimeout = setTimeout(myGreeting, 2000);
+      function myGreeting() {
+        window.location.reload();
+      }
+
     });  
+
+
 
     window.addEventListener('confirm-delete-dialog', event => {
        Swal.fire({

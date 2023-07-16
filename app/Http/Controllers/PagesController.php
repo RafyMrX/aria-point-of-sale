@@ -23,6 +23,10 @@ class PagesController extends Controller
     {
         return view('categories.index');
     }
+    public function units()
+    {
+        return view('units.index');
+    }
     public function products()
     {
         return view('products.index');
@@ -35,6 +39,16 @@ class PagesController extends Controller
     public function reportSales(){
         return view('laporan.sales');
     }
+
+    public function reportPur(){
+        return view('laporan.purchases');
+    }
+
+    public function purchese()
+    {
+        return view('purchese.index');
+    }
+
 
 
     public function salespdf($id){
@@ -81,5 +95,9 @@ class PagesController extends Controller
 
     public function retursales(){
         return view('sales_retur.index');
+    }
+
+    public function returpur(){
+        return view('pur_retur.index');
     }
 }

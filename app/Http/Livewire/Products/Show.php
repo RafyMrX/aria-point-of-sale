@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Products;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Unit;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,7 +28,8 @@ class Show extends Component
         $nonAktif = Product::where('status', 2)->count();
         $products = $this->dataList();
         $categories = Category::all();
-        return view('livewire.products.show', compact('allStatus','aktif', 'nonAktif', 'products', 'categories'));
+        $units = Unit::all();
+        return view('livewire.products.show', compact('allStatus','aktif', 'nonAktif', 'products', 'categories','units'));
     }
 
         // START VALIDATION FORM
@@ -35,6 +37,10 @@ class Show extends Component
         {
             return [
                 'kd_product' => 'required',
+                'barcode' => 'required',
+                'produksi' => 'required',
+                'id_category' => 'required',
+                'unit' => 'required',
                 'name' => 'required',
                 'capital_price' =>  'required|digits_between:1,9999999999|gt:0',
                 'selling_price' =>  'required|digits_between:1,9999999999|gt:capital_price',
@@ -44,6 +50,10 @@ class Show extends Component
         }
         protected $messages = [
             'name.required' => 'nama produk tidak boleh kosong.',
+            'barcode.required' => 'barcode tidak boleh kosong.',
+            'produksi.required' => 'Jenis produk tidak boleh kosong.',
+            'unit.required' => 'Satuan produk tidak boleh kosong.',
+            'id_category.required' => 'Katgeori produk tidak boleh kosong.',
             'capital_price.required' => 'harga tidak boleh kosong',
             'capital_price.digits_between' => 'format harga harus angka dan tidak boleh ada spasi, titik (.) dan koma(,)',
             'capital_price.gt' => 'harga tidak boleh 0 rupiah',
@@ -76,7 +86,6 @@ class Show extends Component
         $this->resetInput();
         $this->resetValidation();
         $product = new Product();
-        $this->barcode = $product->barcode();
         $this->kd_product =  $product->kd_product();
     }
     public function updatedproduksi(){

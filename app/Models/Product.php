@@ -38,22 +38,20 @@ class Product extends Model
 }
 
     public function kd_product(){
+        // 001
         $kode = Product::orderBy('id_product', 'desc')->first();
         if(empty($kode)){
-            $format = "PR0001";
+            $format = "001";
         }else{
             $kode = $kode->id_product;
-            $num = substr($kode, 2, 4);
-            $add = (int) $num + 1;
+            $add = (int) $kode + 1;
             if(strlen($add) == 1){
-                $format = "PR000".$add;
+                $format = "00".$add;
             }else if(strlen($add) == 2){
-                $format = "PR00".$add;
+                $format = "0".$add;
             }
             else if(strlen($add) == 3){
-                $format = "PR0".$add;
-            }else{
-                $format = "PR".$add;
+                $format = $add;
             }
         }
         return $format;

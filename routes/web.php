@@ -19,19 +19,23 @@ Route::get('/suppliers',[PagesController::class, 'suppliers'])->name('suppliers'
 Route::get('/retails',[PagesController::class, 'retails'])->name('retails');
 // data kategori
 Route::get('/categories',[PagesController::class, 'categories'])->name('categories');
-// data kategori
+// data produk
 Route::get('/products',[PagesController::class, 'products'])->name('products');
+// data satuan
+Route::get('/units',[PagesController::class, 'units'])->name('units');
 // transaksi penjualan
 Route::get('/sales',[PagesController::class, 'sales'])->name('sales');
 Route::get('/exportsales/{id}',[PagesController::class, 'salespdf'])->name('salespdf');
 // retur penjualan
-Route::get('/sales-retur',[PagesController::class, 'retursales'])->name('retur.sales');
-
+Route::get('/sales-retur/{id}',[PagesController::class, 'retursales'])->name('retur.sales');
 Route::get('/exportsalesretur/{id}',[PagesController::class, 'returpdf']);
-
 Route::get('/sales/reports',[PagesController::class, 'reportSales'])->name('sales.report');
-// transaksi pembelian 
-// retur pembelian
+
+// transaksi Pembelian
+Route::get('/purchase',[PagesController::class, 'purchese'])->name('purchese');
+Route::get('/purchase-retur',[PagesController::class, 'returpurchese'])->name('retur.purchase');
+Route::get('/purchese-retur',[PagesController::class, 'returpur']);
+Route::get('/purchase/reports',[PagesController::class, 'reportPur'])->name('purchase.report');
 
 });
 

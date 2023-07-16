@@ -92,6 +92,7 @@
         <th>Kategori</th>
         <th>Qty</th>
         <th>Satuan</th>
+        <th>Harga Modal</th>
         <th>Harga Jual</th>
         <th>Status</th>
         <th>Aksi</th>
@@ -116,6 +117,7 @@
       <td  class=" align-middle">@if($item->category == null) <small class="font-italic">tidak ada kategori</small> @else {{ $item->category['name'] }}  @endif</td>
       <td  class=" align-middle @if($item->qty <= 5) text-danger @endif ">{{ $item->qty }} @if($item->qty <= 5)<i class="fa fa-exclamation-circle" aria-hidden="true"></i> @endif</td>
       <td class=" align-middle">{{ $item->unit }}</td>
+      <td class=" align-middle">{{ number_format($item->capital_price) }}</td>
       <td class=" align-middle">{{ number_format($item->selling_price) }}</td>
       <td  class=" align-middle">
         <div class="custom-control custom-switch">
@@ -134,7 +136,7 @@
     </tr>
     @empty
     <tr class="text-center">
-      <td colspan="11">
+      <td colspan="12">
           <img src="https://www.hyperyno.com/front/img/no-result-found.png" alt="No results found" width="170">
           {{-- <p class="mt-2">Tidak ada data ditemukan</p> --}}
       </td>

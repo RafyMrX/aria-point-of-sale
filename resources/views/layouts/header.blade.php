@@ -3,6 +3,7 @@
     @stack('styles')
 <head>
     <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2018/02/05091656/Picture-1.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     {{-- <link rel="shortcut icon" href="" type="image/x-icon"> --}}
@@ -161,7 +162,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fa fa-list-ol" aria-hidden="true"></i>
                                 <p>
@@ -178,7 +179,7 @@
                                 </li>
                               
                             </ul>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -195,6 +196,20 @@
                                         <p>Data Produk</p>
                                     </a>
                                 </li>  
+
+                                <li class="nav-item">
+                                    <a href="{{ url('/categories') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-warning"></i>
+                                        <p>Data Kategori </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ url('/units') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-warning"></i>
+                                        <p>Data Satuan/Unit </p>
+                                    </a>
+                                </li>
                                 {{-- <li class="nav-item">
                                     <a href="{{ url('/data-ujian') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
@@ -221,12 +236,12 @@
                                         <p>Penjualan Produk</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{ url('/sales-retur') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Retur Penjualan</p>
                                     </a>
-                                </li>   
+                                </li>    --}}
           
                               
                             </ul>
@@ -242,17 +257,17 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
+                                    <a href="{{ url('/purchase') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Pembelian Produk</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
+                                {{-- <li class="nav-item">
+                                    <a href="{{ url('/purchese-retur') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Retur Pembelian</p>
                                     </a>
-                                </li>   
+                                </li>    --}}
           
                               
                             </ul>
@@ -275,7 +290,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/data-kriteria') }}" class="nav-link">
+                                    <a href="{{ url('/purchase/reports') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-info"></i>
                                         <p>Lap Pembelian</p>
                                     </a>
@@ -284,13 +299,13 @@
                             </ul>
                         </li>
 
-                        <li class="nav-header">PENGATURAN PENGGUNA</li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-header">PENGATURAN PENGGUNA</li> --}}
+                        {{-- <li class="nav-item">
                             <a href="{{ url('/data-kriteria') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon text-info"></i>
                                 <p>Pengaturan Admin</p>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item">
                             <a href="{{ url('/data-kriteria') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon text-info"></i>

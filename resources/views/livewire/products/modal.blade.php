@@ -11,11 +11,16 @@
           <form wire:submit.prevent='saveProduct'>
           <div class="modal-body">
             <div class="row mb-2">
-                <div class="col-md-6">
+                <div class="col-md-2">
                     <div class="form-group">
-                    <label>Barcode Produk</label>
-                    {!!  DNS1D::getBarcodeHTML($barcode, 'C39',1,30);  !!}
-                    <p class="font-italic">{{ $barcode }}</p>
+                        {!!  DNS1D::getBarcodeHTML($barcode, 'C39',1,30);  !!}
+                        <p class="font-italic">{{ $barcode }}</p>
+                        <label>Barcode Produk</label>
+                        <input type="text" wire:model="barcode"  class="form-control @if($errors->has('barcode')) is-invalid @elseif($barcode == null)  @else is-valid @endif" placeholder="masukkan barcode">
+                        @error('barcode') 
+                        <span class="error text-danger">{{ $message }}</span> 
+                        @enderror
+                    
                     </div>
                 </div>
             </div>
@@ -36,11 +41,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Jenis Produk</label>
-                        <select name="" id="" wire:model='produksi' class="form-control">
+                        <select name="" id="" wire:model='produksi' class="form-control  @if($errors->has('produksi')) is-invalid @elseif($produksi == null)  @else is-valid @endif">
                             <option value="">-- Pilih Jenis --</option>
                             <option value="1">Produk Sendiri</option>
                             <option value="2">Produk Beli</option>
                         </select>
+                        @error('produksi')
+                         <span class="error text-danger">{{ $message }}</span> 
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -56,14 +64,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Kategori</label>
-                        <select name="" id="" wire:model='id_category' class="form-control">
+                        <select name="" id="" wire:model='id_category' class="form-control  @if($errors->has('id_category')) is-invalid @elseif($id_category == null)  @else is-valid @endif ">
                             <option value="" selected>-- Pilih Kategori --</option>
                             @forelse ($categories as $item)
                             <option value="{{ $item->id_category }}" selected>{{ $item->name }}</option>
                             @empty
-                            <option value="" selected class="text-danger">Tambahkan kategori pada menu manajemen kategori</option>
+                            <option value="" selected class="text-danger">Tambahkan kategori pada menu data kategori</option>
                             @endforelse
                         </select>
+                        @error('id_category') 
+                        <span class="error text-danger">{{ $message }}</span> 
+                        @enderror
                     </div>
                 </div>
 
@@ -90,12 +101,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Satuan/Unit</label>
-                    <select name="" id="" wire:model='unit' class="form-control">
+                    <select name="" id="" wire:model='unit' class="form-control @if($errors->has('unit')) is-invalid @elseif($unit == null)  @else is-valid @endif ">
                         <option value="">-- Pilih Satuan --</option>
-                        <option value="pcs">pcs</option>
-                        <option value="bungkus">bungkus</option>
-                        <option value="kotak">kotak</option>
+                        @forelse ($units as $item)
+                        <option value="{{ $item->name }}" selected>{{ $item->name }}</option>
+                        @empty
+                        <option value="" selected class="text-danger">Tambahkan satuan/unit pada menu data satuan</option>
+                        @endforelse
                     </select>
+                    @error('unit') 
+                        <span class="error text-danger">{{ $message }}</span> 
+                        @enderror
                     </div>
                 </div>
 
@@ -199,6 +215,9 @@
                             <option value="1" @selected($produksi == 1)>Produk Sendiri</option>
                             <option value="2" @selected($produksi == 2)>Produk Beli</option>
                         </select>
+                        @error('produksi') 
+                        <span class="error text-danger">{{ $message }}</span> 
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -219,9 +238,12 @@
                             @forelse ($categories as $item)
                             <option value="{{ $item->id_category }}" selected>{{ $item->name }}</option>
                             @empty
-                            <option value=""  class="text-danger">Tambahkan kategori pada menu manajemen kategori</option>
+                            <option value=""  class="text-danger">Tambahkan kategori pada menu data kategori</option>
                             @endforelse
                         </select>
+                        @error('id_category') 
+                        <span class="error text-danger">{{ $message }}</span> 
+                        @enderror
                     </div>
                 </div>
 
@@ -250,10 +272,15 @@
                         <label>Satuan/Unit</label>
                     <select name="" id="" wire:model='unit' class="form-control">
                         <option value="">-- Pilih Satuan --</option>
-                        <option value="pcs" @selected($unit == 'pcs')>pcs</option>
-                        <option value="bungkus"  @selected($unit == 'bungkus')>bungkus</option>
-                        <option value="kotak"  @selected($unit == 'kotak')>kotak</option>
+                        @forelse ($units as $item)
+                            <option value="{{ $item->name }}" selected>{{ $item->name }}</option>
+                            @empty
+                            <option value=""  class="text-danger">Tambahkan satuan/unit pada menu data satuan</option>
+                            @endforelse
                     </select>
+                    @error('unit') 
+                        <span class="error text-danger">{{ $message }}</span> 
+                        @enderror
                     </div>
                 </div>
 

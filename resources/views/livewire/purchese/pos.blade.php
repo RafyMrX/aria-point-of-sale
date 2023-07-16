@@ -12,12 +12,12 @@
                                 <tr>
                                     <td class="font-weight-bold align-middle">Invoice</td>
                                     <td>
-                                        <input wire:model='kode_sales' type="text" class="form-control" readonly>
+                                        <input wire:model='kode_pur' type="text" class="form-control" readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold align-middle">Tanggal</td>
-                                    <td><input wire:model=date_sales type="text" class="form-control" readonly></td>
+                                    <td><input wire:model=date_pur type="text" class="form-control" readonly></td>
                                 </tr>
                                 <tr>
                                     
@@ -32,43 +32,31 @@
 
                 <div class="card card-secondary">
                     <div class="card-header text-white" style="background-color: #5f815e;">
-                        <h3 class="card-title">Informasi Retail</h3>
+                        <h3 class="card-title">Informasi Supplier</h3>
                     </div>
                     <form>
                         <div class="card-body">
                             <table class="table table-sm">
                                 <tr>
 
-                                    <td class="font-weight-bold align-middle">Retail</td>
+                                    <td class="font-weight-bold align-middle">Supplier</td>
                                     <td>
                                         <div wire:ignore>
-                                            <select wire:model='id_retail' class="form-control @error('id_retail') is-invalid @enderror" id="select2-dropdown">
+                                            <select wire:model='id_supplier' class="form-control @error('id_supplier') is-invalid @enderror" id="select2-dropdown">
                                                 <option selected>-- pilih --</option>
-                                                @forelse ($retails as $item)
-                                                <option value="{{ $item->id_retail }}" selected>{{ $item->name }}</option>
+                                                @forelse ($suppliers as $item)
+                                                <option value="{{ $item->id_supplier }}" selected>{{ $item->name }}</option>
                                                 @empty
                                                 <p>tidak ada data</p>
                                                 @endforelse
                                             </select>
                                         </div>
-                                            @error('id_retail') 
+                                            @error('id_supplier') 
                                             <span class="error text-danger">{{ $message }}</span> 
                                             @enderror
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="font-weight-bold align-middle">Status</td>
-                                    <td>
-                                        <select wire:model='status' class="form-control @error('status') is-invalid @enderror">
-                                            <option value="" selected>-- pilih --</option>
-                                            <option value="1">Closing</option>
-                                            <option value="2">Pending</option>
-                                        </select>
-                                        @error('status') 
-                                        <span class="error text-danger">{{ $message }}</span> 
-                                        @enderror
-                                    </td>
-                                </tr>
+                              
                             </table>
                         </div>
 
@@ -109,8 +97,8 @@
                                 <th>Nama Produk</th>
                                 <th>Satuan</th>
                                 <th>Harga</th>
-                                <th class="text-center">Qty PJ</th>
-                                <th>Total PJ</th>
+                                <th class="text-center">Qty Beli</th>
+                                <th>Total Beli</th>
                                 <th class="text-center">Qty RTR</th>
                                 <th>Total RTR</th>
                                 <th>Aksi</th>
@@ -129,75 +117,63 @@
                             <td class="align-middle">{{ $item->id_product }}</td>
                             <td class="align-middle">{{ $item->name }}</td>
                             <td class="align-middle">{{ $item->product['unit'] }}</td>
-                            <td class="align-middle">{{ number_format($item->selling_price, 0, ',', '.')  }}</td>
-
-                            {{-- QTY PENJUALAN --}}
-                            <td class="align-middle">
+                            <td class="align-middle">{{ number_format($item->capital_price, 0, ',', '.')  }}</td>
+                             {{-- QTY PENJUALAN --}}
+                             <td class="align-middle">
                                 <center>
                                 
                                 <div class="input-group" style="width: 100px;">
-                                    <span class="input-group-btn">
-    {{-- <button type="button" class=" btn btn-secondary" wire:loading.attr='disabled' wire:click="decQty('{{ $item->id}}','{{ $item->id_product }}')"  @if($item->qty < 1) disabled @endif>
-                                          <span class="fa fa-minus"></span>
-                                        </button> --}}
-                                    </span>
                                     <input wire:model.debounce.700ms='qtyJ.{{ $item->id }}' type="number" class="form-control text-center" value="0" min="1" placeholder="0">
                            
                                     <span class="input-group-btn">
-    {{-- <button type="button" class="btn btn-secondary"  wire:loading.attr='disabled' wire:click="incQty('{{ $item->id}}','{{ $item->id_product }}')" @if( $item->product['qty'] < 1) disabled @endif>
-                                            <span class="fa fa-plus"></span>
-                                        </button> --}}
-                                    </span>
 
+                                    </span>
                                 </div>
-                                {!! $item->qty > $item->product['qty'] ? "<span class='text-danger'>produk limit</span>" : '' !!}
                             </center>
                             </td>
 
-                            <td class="align-middle text-orange font-weight-bold">{{ number_format( $item->selling_price * $item->qty , 0, ',', '.') }}</td>
+                            <td class="align-middle text-orange font-weight-bold">{{ number_format( $item->capital_price * $item->qty , 0, ',', '.') }}</td>
                             {{-- END PENJUALAN --}}
-                            {{-- START RETUR --}}
-                            <td class="align-middle">
+
+                               {{-- START RETUR --}}
+                               <td class="align-middle">
                                 <center>
                                 
                                 <div class="input-group" style="width: 100px;">
                                     <span class="input-group-btn">
-    {{-- <button type="button" class=" btn btn-secondary" wire:loading.attr='disabled' wire:click="decQtyR('{{ $item->id}}','{{ $item->id_product }}')" @if($item->qty_retur < 1) disabled @endif>
-                                          <span class="fa fa-minus"></span>
-                                        </button> --}}
+
                                     </span>
                                     <input wire:model.debounce.700ms='qtyR.{{ $item->id }}' type="number" class="form-control text-center" value="0" min="1" placeholder="0">
                            
                                     <span class="input-group-btn">
-    {{-- <button type="button" class="btn btn-secondary"  wire:loading.attr='disabled' wire:click="incQtyR('{{ $item->id}}','{{ $item->id_product }}')" @if( $item->qty <= $item->qty_retur)  disabled @endif>
-                                            <span class="fa fa-plus"></span>
-                                        </button> --}}
+
                                     </span>
 
+             
                                 </div>
                                 {!! $item->qty_retur > $item->qty ? "<span class='text-danger'>retur limit</span>" : '' !!}
                             </center>
                             </td>
 
-                            <td class="align-middle text-danger font-weight-bold">-{{ number_format( $item->selling_price * $item->qty_retur , 0, ',', '.') }}</td>
+                            <td class="align-middle text-danger font-weight-bold">-{{ number_format( $item->capital_price * $item->qty_retur , 0, ',', '.') }}</td>
 
-                            {{-- END RETUR --}}
+                            <td class="align-middle">{{ number_format( $item->capital_price * $item->qty , 0, ',', '.') }}</td>
                             <td class="align-middle">
                                 <button type="submit" class="btn btn-danger"
                                     wire:click="deleteConfirmation('{{ $item->id }}','{{ $item->id_product }}','{{ $item->qty }}', '{{  $item->product['qty'] }}')"><i class="fa fa-trash-o"
-                                        aria-hidden="true"></i></button>
-                            </td>
+                                        aria-hidden="true"></i></button></td>
                         </tr>
                         @php
-                        $sub = $item->selling_price * $item->qty;
+                        $sub = $item->capital_price * $item->qty;
                         $subtotal += $sub;
-                        $subr = $item->selling_price * $item->qty_retur;
+                        $subr = $item->capital_price * $item->qty_retur;
                         $subtotal_retur += $subr;
 
                         $mod = $item->capital_price * $item->qty;
                         $submodal += $mod;
 
-                       $bersih = $subtotal-$subtotal_retur-$submodal;
+                       $bersih = $subtotal-$subtotal_retur;
+
                          @endphp
                         @empty
                             <tr>
@@ -211,13 +187,7 @@
                
                     <div class="row">
                         <div class="col-md-6 ">
-                            {{-- <div class="alert alert-warning alert-dismissible fade show" role="alert"
-                                style="background-color: rgb(231, 231, 165)">
-                                Pastikan jumlah produk cukup!.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div> --}}
+           
                             <textarea wire:model='comment' rows="4" class="form-control" placeholder="Keterangan"></textarea>
                         </div>
                         <div class="col-md-6">
@@ -240,7 +210,7 @@
                     grid-template-columns: 1fr 1fr;
                     grid-gap: 2px;">
                     {{-- ADMIN --}}
-                                <button type="button" wire:click="resetCart('{{ $id_user }}','1')" type="button" class="btn btn-danger btn-lg mr-2" @if($statusCartreset < 1) disabled @endif><i class="fa fa-refresh"
+                                <button type="button" wire:click="resetCart('{{ $id_user }}','2')" type="button" class="btn btn-danger btn-lg mr-2" @if($statusCart < 1) disabled @endif><i class="fa fa-refresh"
                                         aria-hidden="true"></i> Reset</button>
                                 <button wire:click="order('{{ $id_user }}', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}','{{ $subtotal_retur }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
                                     Transaksi</button>
@@ -259,7 +229,7 @@
             $('#select2-dropdown').select2();
             $('#select2-dropdown').on('change', function(e){
                 var data = $('#select2-dropdown').select2('val');
-                @this.set('id_retail',data);
+                @this.set('id_supplier',data);
             });
         });
 </script>

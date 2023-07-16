@@ -3,20 +3,15 @@
 namespace App\Models;
 
 use DateTimeZone;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Sale extends Model
+class Purchase extends Model
 {
-    protected $table = "sales";
+    protected $table = "purchases";
     protected $guarded = ['created_at', 'updated_at'];
 
-
-
-    public function DetailSale(){
-        return $this->hasMany('App\Models\DetailSale', 'id_sale','id_sale');
-    }
-
+    
     public function admin(){
         $admin =  auth()->user()->name ;
         return $admin;
@@ -33,7 +28,7 @@ class Sale extends Model
         return $date;
     }
 
-    public function dateSale(){
+    public function datePur(){
             // date 
     //Creating a DateTime object
       $tz = 'Asia/Jakarta';   
@@ -44,15 +39,15 @@ class Sale extends Model
      return $format;
     }
 
-    public function kd_sale(){
+    public function kd_pur(){
         // INV/J/30062023/0001
-        $text ='INV/J/';
+        $text ='INV/B/';
         $date = date('dmY').'/';
-        $kode = Sale::orderBy('id_sale', 'desc')->first();
+        $kode = Purchase::orderBy('id_pur', 'desc')->first();
         if(empty($kode)){
             $format = $text.''.$date.'0001';
         }else{
-            $kode = $kode->id_sale;
+            $kode = $kode->id_pur;
             $num = substr($kode, 15, 4);
             $add = (int) $num + 1;
             if(strlen($add) == 1){

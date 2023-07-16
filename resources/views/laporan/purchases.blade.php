@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Data Katgeori')
+@section('title', 'Laporan Pembelian')
 {{-- @section('page-title', 'Data Supplier') --}}
 @push('styles')
     @livewireStyles
@@ -12,21 +12,21 @@
 @section('content')
 <div class="card card-light">
     <div class="card-header">
-        <h4>Data Kategori</h4>
+        <h4>Laporan Pembelian</h4>
     </div>
     <!-- /.card-header -->
 <div class="card-body">
 {{-- CONTENT LIVE WIRE --}}
+@livewire('laporan.purchases')
 
-        @livewire('categories.show')
 
 </div>
 </div>
 @push('scripts')
   <script>
      window.addEventListener('close-modal', function(e) {
-      $('#categorymodal').modal('hide');
-      $('#updatecategorymodal').modal('hide');
+      $('#retailmodal').modal('hide');
+      $('#updateretailmodal').modal('hide');
      });
     window.addEventListener('swal', function(e) {
       Swal.fire({
