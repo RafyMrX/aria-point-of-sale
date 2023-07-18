@@ -36,6 +36,8 @@ Route::get('/purchase',[PagesController::class, 'purchese'])->name('purchese');
 Route::get('/purchase-retur',[PagesController::class, 'returpurchese'])->name('retur.purchase');
 Route::get('/purchese-retur',[PagesController::class, 'returpur']);
 Route::get('/purchase/reports',[PagesController::class, 'reportPur'])->name('purchase.report');
+Route::get('/exportpur/{id}',[PagesController::class, 'purnota']);
+Route::get('/exportpurretur/{id}',[PagesController::class, 'purturnota']);
 
 });
 

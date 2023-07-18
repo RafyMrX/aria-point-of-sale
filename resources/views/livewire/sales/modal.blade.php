@@ -285,6 +285,69 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+
+                                        <div class="custom-control custom-switch mb-2">
+                                            <input wire:change='switchModal({{ $stModal }})' type="checkbox" class="custom-control-input" @checked($stModal == 1) id="1">
+                                            <label class="custom-control-label text-sm" for="1">
+                                              {!! $stModal == 1 ? "<span class='badge badge-pill badge-secondary'>Sembunyikan</span>" : "<span class='badge badge-pill badge-secondary'>Tampilkan Informasi Modal</span>" !!}
+                                            </label>
+                                      
+                                          </div>
+                                        @if($stModal == 1)
+                                        <h5>Penjualan Modal</h5>
+                                        <table class="table table-sm ">
+                                            <thead style="background-color: #f6f6f6;">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Kode Produk </th>
+                                                    <th>Nama Produk</th>
+                                                    <th>Satuan</th>
+                                                    <th>hrg modal</th>
+                                                    <th class="text-center">Qty </th>
+                                                    <th>Total Modal</th>
+                                                    {{-- <th>Aksi</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $subtotal = 0;
+                                                    $subtotal_retur = 0;
+                                                    $modal = 0;
+                                                @endphp
+                                                @foreach ($data as $index => $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->pid }}</td>
+                                                    <td>{{ $item->nameP }}</td>
+                                                    <td>{{ $item->satuan }}</td>
+                                                    <td>{{ number_format($item->hargamodal, 0, ',', '.')  }}</td>
+                                                    <td class="text-center">
+                                                        {{ $item->qty }}
+                                                    </td>
+                                                    <td>{{ number_format( $item->hargamodal * $item->qty , 0, ',', '.') }}</td>
+                                                    {{-- @if($stEdit === $index)
+                                                    <td class="text-center border-left"><button wire:click="editD('{{ $editqty }}','{{ $editqtyr }}','{{ $editindex }}')" type="button" class="btn btn-success">Simpan</button></td>
+                                                    @else
+                                                    <td class="text-center border-left"><button wire:click="editData({{ $index }})" type="button" class="btn btn-warning">Edit</button>
+                                                    </td>
+                                                    @endif --}}
+                                                   
+                                                </tr>
+                                                @php
+                                                $mod = $item->hargamodal * $item->qty;
+                                                $modal += $mod;
+                                                @endphp 
+                                                @endforeach
+                                                <tr>
+                                                    <td colspan="6"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Modal</td>
+                                                    <td colspan="7" class="bg-secondary font-weight-bold">Rp.{{ number_format( $modal , 0, ',', '.') }}</td>
+                                                </tr>
+                 
+                                            </tbody>
+                                        </table>
+                                        @endif
+
+
                                         @else
                                         <table class="table table-sm ">
                                             <thead style="background-color: #f6f6f6;">
@@ -293,8 +356,8 @@
                                                     <th>Kode Produk </th>
                                                     <th>Nama Produk</th>
                                                     <th>Satuan</th>
-                                                    {{-- <th>modal</th> --}}
-                                                    <th>Harga</th>
+                                                    {{-- <th>hrg modal</th> --}}
+                                                    <th>hrg jual</th>
                                                     <th class="text-center">Qty Penjualan</th>
                                                     <th>Total Penjualan</th>
                                                     <th class="text-center border-left">Qty Retur</th>
@@ -366,6 +429,67 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+
+                                        <div class="custom-control custom-switch mb-2">
+                                            <input wire:change='switchModal({{ $stModal }})' type="checkbox" class="custom-control-input" @checked($stModal == 1) id="1">
+                                            <label class="custom-control-label text-sm" for="1">
+                                              {!! $stModal == 1 ? "<span class='badge badge-pill badge-secondary'>Sembunyikan</span>" : "<span class='badge badge-pill badge-secondary'>Tampilkan Informasi Modal</span>" !!}
+                                            </label>
+                                      
+                                          </div>
+                                        @if($stModal == 1)
+                                        <h5>Penjualan Modal</h5>
+                                        <table class="table table-sm ">
+                                            <thead style="background-color: #f6f6f6;">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Kode Produk </th>
+                                                    <th>Nama Produk</th>
+                                                    <th>Satuan</th>
+                                                    <th>hrg modal</th>
+                                                    <th class="text-center">Qty </th>
+                                                    <th>Total Modal</th>
+                                                    {{-- <th>Aksi</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $subtotal = 0;
+                                                    $subtotal_retur = 0;
+                                                    $modal = 0;
+                                                @endphp
+                                                @foreach ($data as $index => $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->pid }}</td>
+                                                    <td>{{ $item->nameP }}</td>
+                                                    <td>{{ $item->satuan }}</td>
+                                                    <td>{{ number_format($item->hargamodal, 0, ',', '.')  }}</td>
+                                                    <td class="text-center">
+                                                        {{ $item->qty }}
+                                                    </td>
+                                                    <td>{{ number_format( $item->hargamodal * $item->qty , 0, ',', '.') }}</td>
+                                                    {{-- @if($stEdit === $index)
+                                                    <td class="text-center border-left"><button wire:click="editD('{{ $editqty }}','{{ $editqtyr }}','{{ $editindex }}')" type="button" class="btn btn-success">Simpan</button></td>
+                                                    @else
+                                                    <td class="text-center border-left"><button wire:click="editData({{ $index }})" type="button" class="btn btn-warning">Edit</button>
+                                                    </td>
+                                                    @endif --}}
+                                                   
+                                                </tr>
+                                                @php
+                                                $mod = $item->hargamodal * $item->qty;
+                                                $modal += $mod;
+                                                @endphp 
+                                                @endforeach
+                                                <tr>
+                                                    <td colspan="6"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Modal</td>
+                                                    <td colspan="7" class="bg-secondary font-weight-bold">Rp.{{ number_format( $modal , 0, ',', '.') }}</td>
+                                                </tr>
+                 
+                                            </tbody>
+                                        </table>
+                                        @endif
                                         @endif
 
                                     </div>

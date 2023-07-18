@@ -146,7 +146,7 @@
                 
                 @empty
                     <tr>
-                        <td colspan="3">Tidak ada produk terjual</td>
+                        <td colspan="3" class="text-center">Tidak ada produk yang terjual</td>
                     </tr>
                 @endforelse
                 </tbody>

@@ -43,7 +43,7 @@ class Show extends Component
                 'unit' => 'required',
                 'name' => 'required',
                 'capital_price' =>  'required|digits_between:1,9999999999|gt:0',
-                'selling_price' =>  'required|digits_between:1,9999999999|gt:capital_price',
+                'selling_price' =>  'required|digits_between:1,9999999999',
                 'qty' =>  'digits_between:1,9999999999',
                 'exp' => 'nullable|after:' . date('Y-m-d', strtotime(date('Y-m-d'))-1)
             ];
@@ -54,12 +54,12 @@ class Show extends Component
             'produksi.required' => 'Jenis produk tidak boleh kosong.',
             'unit.required' => 'Satuan produk tidak boleh kosong.',
             'id_category.required' => 'Katgeori produk tidak boleh kosong.',
-            'capital_price.required' => 'harga tidak boleh kosong',
+            'capital_price.required' => 'harga modal tidak boleh kosong',
             'capital_price.digits_between' => 'format harga harus angka dan tidak boleh ada spasi, titik (.) dan koma(,)',
-            'capital_price.gt' => 'harga tidak boleh 0 rupiah',
-            'selling_price.required' => 'harga tidak boleh kosong',
+            'capital_price.gt' => 'harga modal tidak boleh 0 rupiah',
+            'selling_price.required' => 'harga jual tidak boleh kosong dan tidak boleh dibawah harga modal',
             'selling_price.digits_between' => 'format harga harus angka dan tidak boleh ada spasi, titik (.) dan koma(,)',
-            'selling_price.gt' => 'harga jual tidak boleh 0 rupiah atau dibawah harga modal ',
+            // 'selling_price.gt' => 'harga jual tidak boleh 0 rupiah atau dibawah harga modal ',
             'qty.digits_between' => 'qty hasrus angka dan tidak berjumlah minus',
             'exp.after' => 'tanggal expired tidak boleh hari sebelumnya'
 

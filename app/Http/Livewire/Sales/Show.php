@@ -31,6 +31,9 @@ class Show extends Component
 //  EDIT
     public $editJ = [], $editR = [], $editqty, $editqtyr, $editindex;
     public  $stRetur, $stEdit;
+    
+    // modal 
+    public $stModal = 2;
 
 
     public function editData($index){
@@ -107,6 +110,14 @@ class Show extends Component
         Sale::where('id', $id)->update([
             'status' => $status
         ]);
+    }
+
+    public function switchModal($stModal){
+        if($stModal == 1){
+            $this->stModal = 2;
+        }else{
+            $this->stModal = 1;
+        }
     }
 
     // detail modal

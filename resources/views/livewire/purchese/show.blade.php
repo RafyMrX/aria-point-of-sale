@@ -86,12 +86,12 @@
       
         <td class="align-middle">
           @if($item->jml_retur < 1)
-          <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$item->id)}}" target="_blank" data-title="Print">
+          <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportpur/'.$item->id)}}" target="_blank" data-title="Print">
             <i class="fa fa-print" aria-hidden="true"></i>
           
         </a>
         @else
-        <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsalesretur/'.$item->id)}}" target="_blank" data-title="Print">
+        <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportpurretur/'.$item->id)}}" target="_blank" data-title="Print">
           <i class="fa fa-print" aria-hidden="true"></i>
         
       </a>
