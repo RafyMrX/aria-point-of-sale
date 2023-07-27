@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Purchese;
 
+use App\Models\DetailPur;
+use App\Models\Product;
 use App\Models\Purchase;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,6 +31,8 @@ class Show extends Component
       public $nameAdmin;
 
       public  $stRetur;
+      protected $listeners = ['deleteConfirmed' => 'deleteSales'];
+      public $qt;
 
       public function cancel(){
         $this->resetInput();
@@ -49,6 +53,25 @@ class Show extends Component
 
         return view('livewire.purchese.show', compact('pur','data'));
     }
+
+    public function deleteConfirmation($id){
+        $this->idSale = $id;
+        $this->dispatchBrowserEvent('confirm-delete-dialog');
+    }
+    public function deleteSales(){
+        $detailBeli = DetailPur::where('id_pur', $this->idSale)->get();
+        foreach ($detailBeli as $key => $item) {
+            $j = $item->qty-$item->qty_retur;
+            Product::where('id_product', $item->id_product)->update([
+                'qty' => $item->product['qty']-$j
+            ]);
+        }
+        Purchase::where('id_pur', $this->idSale)->delete();
+        DetailPur::where('id_pur', $this->idSale)->delete();
+        $this->reset(['idSale']);
+        $this->emit('reset_kode');
+       $this->dispatchBrowserEvent('swal',['data' => 'Data berhasil dihapus!']);
+   }
 
     public function resetInput(){
         $this->reset(['retailName','retailAddress','retailTlp','retailEmail','idSale','dateSale','grandTotal','total','qty','cPrice','sPrice','id_product','productName', 'satuan']);

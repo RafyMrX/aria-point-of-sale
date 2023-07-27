@@ -11,7 +11,8 @@ use App\Models\Supplier;
 date_default_timezone_set('Asia/Jakarta');
 class Pos extends Component
 {
-    protected $listeners = ['deleteConfirmed' => 'deleteCart'];
+    // protected $listeners = ['deleteConfirmed' => 'deleteCart'];
+    protected $listeners = ['reset_kode' => 'rst'];
     public $cart_id;
     // Informasi Nota
     public $kode_pur, $date_pur, $nameAdmin,$id_user, $total;
@@ -24,6 +25,10 @@ class Pos extends Component
     // delete cart and restore data qty to product
     public $qtyRestore, $id_product, $productQty;
 
+    public function rst(){
+     
+        $this->reset(['kode_pur']);
+    }
 
     public function render()
     {
@@ -161,7 +166,11 @@ foreach($this->qtyR as $key => $value){
         $this->dispatchBrowserEvent('confirm-delete-dialog');
     }
 
-    public function deleteCart(){
+    public function deleteCart($id, $id_product, $qtyRestore, $productQty){
+         $this->cart_id = $id;
+        $this->id_product = $id_product;
+        $this->qtyRestore = $qtyRestore;
+        $this->productQty = $productQty;
         Cart::where('id', $this->cart_id)->delete();
         $this->resetInput();
         $this->reset(['kode_pur', 'comment','id_supplier']);

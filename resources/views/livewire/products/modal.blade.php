@@ -138,16 +138,32 @@
                         @enderror
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Produk Konsinyasi</label>
+                        <div class="custom-control custom-switch">
+                          <input wire:change='switchReturCreate(2)' type="checkbox" class="custom-control-input" id="retur" @if($switchRetur== 1) checked @endif>
+                          <label class="custom-control-label text-sm" for="retur">{!! $switchRetur== 2 ? "<span>Tidak</span>" : "<span class='text-success'>Iya</span>" !!}</label>
+                        </div> 
+                    </div>
+                    </div> 
 
                 <div class="col-md-4">
-                <div class="form-group">
-                    <label>Status Produk</label>
-                    <div class="custom-control custom-switch">
-                      <input wire:change='switchStatusCreate(2)' type="checkbox" class="custom-control-input" id="status" @if($switchValue == 1) checked @endif>
-                      <label class="custom-control-label text-sm" for="status">{!! $switchValue == 2 ? "<span>Tidak Aktif</span>" : "<span class='text-success'>Aktif</span>" !!}</label>
-                    </div> 
+
                 </div>
-                </div> 
+                <div class="col-md-4">
+                    
+                </div>
+         
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Status Produk</label>
+                        <div class="custom-control custom-switch">
+                          <input wire:change='switchStatusCreate(2)' type="checkbox" class="custom-control-input" id="status" @if($switchValue == 1) checked @endif>
+                          <label class="custom-control-label text-sm" for="status">{!! $switchValue == 2 ? "<span>Tidak Aktif</span>" : "<span class='text-success'>Aktif</span>" !!}</label>
+                        </div> 
+                    </div>
+                    </div> 
       
 
             </div>
@@ -309,6 +325,23 @@
                 </div>
 
                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Produk Konsinyasi</label>
+                        <div class="custom-control custom-switch">
+                          <input wire:change='switchReturCreate(2)' type="checkbox" class="custom-control-input" id="retur" @if($switchRetur== 1) checked @endif>
+                          <label class="custom-control-label text-sm" for="retur">{!! $switchRetur== 2 ? "<span>Tidak</span>" : "<span class='text-success'>Iya</span>" !!}</label>
+                        </div> 
+                    </div>
+                    </div>
+
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+
+                <div class="col-md-4">
                 <div class="form-group">
                     <label>Status Produk</label>
                     <div class="custom-control custom-switch">
@@ -324,8 +357,8 @@
 
           <div class="modal-footer">
             <button wire:click='cancel' type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> batal</button>
-            <button type="submit" class="btn btn-success" wire:loading.attr='disabled' wire:target='updateProduct'>
-                <span wire:loading.remove wire:target='updateProduct'><i class="fa fa-save"></i> simpan</span>
+            <button type="submit" class="btn btn-warning" wire:loading.attr='disabled' wire:target='updateProduct'>
+                <span wire:loading.remove wire:target='updateProduct'><i class="fa fa-save"></i>Simpan Perubahan</span>
                 <div wire:loading wire:target='updateProduct'>
                     <div class="spinner-border spinner-border-sm" role="status">
                     </div>
@@ -461,6 +494,16 @@
                         @enderror
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Produk Konsinyasi</label>
+                        <div class="custom-control custom-switch">
+                            {!! $switchRetur == 2 ? "<span class='font-weight-bold'>Tidak</span>" : "<span class='text-success font-weight-bold'>Iya</span>" !!}
+                        </div> 
+                    </div>
+                    </div> 
+
 
                 <div class="col-md-4">
                 <div class="form-group">

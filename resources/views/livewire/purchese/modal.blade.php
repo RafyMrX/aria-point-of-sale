@@ -163,12 +163,12 @@
                         <div class="page-tools">
                             <div class="action-buttons">
                                 @if($stRetur < 1)
-                                <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsales/'.$id_detail)}}" target="_blank" data-title="Print">
+                                <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportpur/'.$id_detail)}}" target="_blank" data-title="Print">
                                   <i class="fa fa-print" aria-hidden="true"></i>
                                   Cetak
                               </a>
                               @else
-                              <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportsalesretur/'.$id_detail)}}" target="_blank" data-title="Print">
+                              <a class="btn btn-secondary mx-1px text-95" href="{{url('/exportpurretur/'.$id_detail)}}" target="_blank" data-title="Print">
                                 <i class="fa fa-print" aria-hidden="true"></i>
                                 Cetak
                             </a>

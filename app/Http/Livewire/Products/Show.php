@@ -14,6 +14,7 @@ class Show extends Component
     protected $listeners = ['deleteConfirmed' => 'deleteProduct'];
     // var for switch crerate
     public $switchValue = 2;
+    public $switchRetur = 2;
     // Datatable 
     use WithPagination;
     public $stProduct = null, $category = null;
@@ -74,7 +75,7 @@ class Show extends Component
 
         // MAIN METHOD
     public function resetInput(){
-            $this->reset(['kd_product','name','product_id','id_category','barcode','capital_price','selling_price','unit','qty','exp','produksi','switchValue']);
+            $this->reset(['kd_product','name','product_id','id_category','barcode','capital_price','selling_price','unit','qty','exp','produksi','switchValue','switchRetur']);
     }
     public function cancel(){
             $this->resetInput();
@@ -101,6 +102,16 @@ class Show extends Component
         }
     }
 
+    public function switchReturCreate($d){
+        if($this->switchRetur == $d){
+            $this->switchRetur = 1;
+        }else{
+            $this->switchRetur = 2;
+        }
+
+        // dd($this->switchRetur);
+    }
+
     // STORE 
     public function saveProduct(){
         $this->validate();
@@ -118,7 +129,8 @@ class Show extends Component
             'qty' =>  $this->qty,
             'exp' =>  $this->exp,
             'status' =>  $this->switchValue,
-            'produksi' => $this->produksi
+            'produksi' => $this->produksi,
+            'retur' => $this->switchRetur
         ]);
         $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
@@ -143,6 +155,8 @@ class Show extends Component
             $this->exp = $product->exp;
             $this->switchValue = $product->status;
             $this->produksi = $product->produksi;
+            $this->switchRetur = $product->retur;
+        
     
         }else{
             return redirect()->to('/products');
@@ -167,7 +181,8 @@ class Show extends Component
             'qty' =>  $this->qty,
             'exp' =>  $this->exp,
             'status' =>  $this->switchValue,
-            'produksi' => $this->produksi
+            'produksi' => $this->produksi,
+            'retur' => $this->switchRetur
         ]);
         $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
@@ -202,6 +217,7 @@ class Show extends Component
             $this->exp = $product->exp;
             $this->switchValue = $product->status;
             $this->produksi = $product->produksi;
+            $this->switchRetur = $product->retur;
     
         }else{
             return redirect()->to('/products');

@@ -27,11 +27,12 @@
                 @endforelse
             </select>
         </div>
-    </div>
-    
+    </div>    
   </div>
-
   <div class="table-responsive mt-5">
+    {{-- @if(!empty($id_retail))
+    <a href="" class="btn btn-outline-success mb-2"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export excel</a>
+    @endif --}}
     <x-loading wire:loading.delay.longest/>
   <table class="table  table-striped table-sm table-hover rounded-6"> 
   <thead style="background-color: #5f815e; color:#fff;">

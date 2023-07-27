@@ -33,3 +33,22 @@ class Retail extends Model
         return $format;
     }
 }
+
+
+ // 001
+//  $kode = Retail::orderBy('id_retail', 'desc')->first();
+//  if(empty($kode)){
+//      $format = "001";
+//  }else{
+//      $kode = $kode->id_retail;
+//      $add = (int) $kode + 1;
+//      if(strlen($add) == 1){
+//          $format = "00".$add;
+//      }else if(strlen($add) == 2){
+//          $format = "0".$add;
+//      }
+//      else if(strlen($add) == 3){
+//          $format = $add;
+//      }
+//  }
+//  return $format;

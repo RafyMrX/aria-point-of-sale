@@ -110,6 +110,7 @@
                             $subtotal_retur = 0;
                             $submodal = 0;
                             $bersih = 0;
+                            $btr = 2;
                         @endphp
                         @forelse ($carts as $item)
                         <tr>
@@ -160,7 +161,7 @@
                             <td class="align-middle">{{ number_format( $item->capital_price * $item->qty , 0, ',', '.') }}</td>
                             <td class="align-middle">
                                 <button type="submit" class="btn btn-danger"
-                                    wire:click="deleteConfirmation('{{ $item->id }}','{{ $item->id_product }}','{{ $item->qty }}', '{{  $item->product['qty'] }}')"><i class="fa fa-trash-o"
+                                    wire:click="deleteCart('{{ $item->id }}','{{ $item->id_product }}','{{ $item->qty }}', '{{  $item->product['qty'] }}')"><i class="fa fa-trash-o"
                                         aria-hidden="true"></i></button></td>
                         </tr>
                         @php
@@ -174,6 +175,11 @@
 
                        $bersih = $subtotal-$subtotal_retur;
 
+                       if($item->qty_retur > $item->qty){
+                        $btr = 1;
+                       }else{
+                        $btr = 2;
+                       }
                          @endphp
                         @empty
                             <tr>
@@ -212,7 +218,7 @@
                     {{-- ADMIN --}}
                                 <button type="button" wire:click="resetCart('{{ $id_user }}','2')" type="button" class="btn btn-danger btn-lg mr-2" @if($statusCart < 1) disabled @endif><i class="fa fa-refresh"
                                         aria-hidden="true"></i> Reset</button>
-                                <button wire:click="order('{{ $id_user }}', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}','{{ $subtotal_retur }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
+                                <button wire:click="order('{{ $id_user }}', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}','{{ $subtotal_retur }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1 or $btr == 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
                                     Transaksi</button>
                             </div>
                         </div>

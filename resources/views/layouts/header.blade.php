@@ -98,7 +98,7 @@
             <!-- Brand Logo -->
             <a href="/" class="brand-link" style="background-color: #2c2d2e;color:#fff;">
                 <img src="" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <h4 class=" text-center">ARIA System</h4>
+                <h4 class=" text-center">SI Pempu</h4>
             </a>
 
             <!-- Sidebar -->

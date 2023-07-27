@@ -54,6 +54,12 @@
         timer: 3000,
         timerProgressBar: true,  
       })
+
+      // const myTimeout = setTimeout(myGreeting, 1000);
+      // function myGreeting() {
+      //   window.location.reload();
+      // }
+
     });  
 
     window.addEventListener('swalOrder', function(e) {

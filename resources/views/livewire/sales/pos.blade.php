@@ -122,6 +122,8 @@
                             $subtotal_retur = 0;
                             $submodal = 0;
                             $bersih = 0;
+                            $bt=2;
+                            $btr=2;
                         @endphp
                         @forelse ($carts as $item)
                         <tr>
@@ -184,7 +186,7 @@
                             {{-- END RETUR --}}
                             <td class="align-middle">
                                 <button type="submit" class="btn btn-danger"
-                                    wire:click="deleteConfirmation('{{ $item->id }}','{{ $item->id_product }}','{{ $item->qty }}', '{{  $item->product['qty'] }}')"><i class="fa fa-trash-o"
+                                    wire:click="deleteCart('{{ $item->id }}','{{ $item->id_product }}','{{ $item->qty }}', '{{  $item->product['qty'] }}')"><i class="fa fa-trash-o"
                                         aria-hidden="true"></i></button>
                             </td>
                         </tr>
@@ -194,10 +196,29 @@
                         $subr = $item->selling_price * $item->qty_retur;
                         $subtotal_retur += $subr;
 
+                        if($item->product['retur'] == 1){
+                        $j =  $item->qty - $item->qty_retur;
+                        $mod = $item->capital_price * $j;
+                        $submodal += $mod;
+                        }else{
                         $mod = $item->capital_price * $item->qty;
                         $submodal += $mod;
+                        }
 
                        $bersih = $subtotal-$subtotal_retur-$submodal;
+
+                       if($item->qty > $item->product['qty']){
+                        $bt = 1;
+                       }else{
+                        $bt = 2;
+                       }
+
+                       if($item->qty_retur > $item->qty){
+                        $btr = 1;
+                       }else{
+                        $btr = 2;
+                       }
+
                          @endphp
                         @empty
                             <tr>
@@ -221,6 +242,7 @@
                             <textarea wire:model='comment' rows="4" class="form-control" placeholder="Keterangan"></textarea>
                         </div>
                         <div class="col-md-6">
+                {{-- {{ $bersih }} --}}
                             <table class="table table-striped table-sm">
        
                                 <tr>
@@ -242,8 +264,7 @@
                     {{-- ADMIN --}}
                                 <button type="button" wire:click="resetCart('{{ $id_user }}','1')" type="button" class="btn btn-danger btn-lg mr-2" @if($statusCartreset < 1) disabled @endif><i class="fa fa-refresh"
                                         aria-hidden="true"></i> Reset</button>
-                                <button wire:click="order('{{ $id_user }}', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}','{{ $subtotal_retur }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat
-                                    Transaksi</button>
+                                <button wire:click="order('{{ $id_user }}', '{{ $subtotal }}','{{ $bersih }}','{{ $submodal }}','{{ $subtotal_retur }}')"  type="button" class="btn btn-primary btn-lg "  @if($statusCart < 1 or $bt == 1 or  $btr == 1) disabled @endif><i class="fa fa-floppy-o" aria-hidden="true" ></i> Buat Transaksi</button>
                             </div>
                         </div>
                     </div>

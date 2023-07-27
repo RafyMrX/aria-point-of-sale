@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Sales;
 
 use App\Models\DetailSale;
+use App\Models\Product;
 use App\Models\Retail;
 use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ class Show extends Component
      public $sortColumnName = 'created_at', $sortDirection = 'desc', $searchTerm = null, $showData = 5, $selectedRows = [], $selectedPageRows = false;
      protected $paginationTheme = 'bootstrap';
      protected $queryString = ['searchTerm' => ['except' => '']];
+    protected $listeners = ['deleteConfirmed' => 'deleteSales'];
     // date range
      public $from =null, $to = null;
       // detail sales retail
@@ -78,13 +80,13 @@ class Show extends Component
         $pending = Sale::where('status', 2)->count();
         $sales = $this->dataList();
         // UNTUK MODAL
-        $data = Sale::select('detail_sales.id AS idD','detail_sales.id_product AS idp','sales.id AS id','sales.date_sale AS dateSale','retails.id_retail AS retail_id','retails.name AS name_retail','sales.id_sale AS sale_id',DB::raw('sum(detail_sales.qty) AS totalqty'),DB::raw('sum(detail_sales.qty_retur) AS qtyretur'),'detail_sales.qty_retur AS qty_retur','sales.total AS totalSales','sales.total_retur AS total_retur','sales.jml_retur AS jml_retur','sales.status AS status','sales.created_at', 'users.name AS admin', 'retails.address AS retailAd','retails.tlp AS retailTel','retails.email AS retailem','products.id_product AS pid', 'detail_sales.qty AS qty','detail_sales.unit AS satuan','detail_sales.selling_price AS hargaJual','products.name AS nameP','detail_sales.capital_price AS hargamodal')
+        $data = Sale::select('detail_sales.id AS idD','detail_sales.id_product AS idp','sales.id AS id','sales.date_sale AS dateSale','retails.id_retail AS retail_id','retails.name AS name_retail','sales.id_sale AS sale_id',DB::raw('sum(detail_sales.qty) AS totalqty'),DB::raw('sum(detail_sales.qty_retur) AS qtyretur'),'detail_sales.qty_retur AS qty_retur','sales.total AS totalSales','sales.total_retur AS total_retur','sales.jml_retur AS jml_retur','sales.status AS status','sales.created_at', 'users.name AS admin', 'retails.address AS retailAd','retails.tlp AS retailTel','retails.email AS retailem','products.id_product AS pid', 'detail_sales.qty AS qty','detail_sales.unit AS satuan','detail_sales.selling_price AS hargaJual','products.name AS nameP','detail_sales.capital_price AS hargamodal', 'products.retur AS rtr')
         ->join('detail_sales', 'detail_sales.id_sale', '=', 'sales.id_sale')
         ->join('retails', 'retails.id_retail', '=', 'detail_sales.id_retail')
         ->join('products', 'products.id_product', '=', 'detail_sales.id_product')
         ->join('users', 'users.id_user', '=', 'detail_sales.id_user')
         ->having('sales.id', $this->id_detail)
-        ->groupBy('detail_sales.id','detail_sales.id_product','detail_sales.capital_price','sales.jml_retur','detail_sales.qty_retur','sales.total_retur','sales.id','sales.id_sale', 'sales.date_sale','retails.id_retail', 'retails.name', 'sales.total','sales.status','sales.created_at','users.name','retails.address', 'retails.tlp', 'retails.email','products.id_product','detail_sales.qty','detail_sales.unit','detail_sales.selling_price','products.name')->get();
+        ->groupBy('products.retur','detail_sales.id','detail_sales.id_product','detail_sales.capital_price','sales.jml_retur','detail_sales.qty_retur','sales.total_retur','sales.id','sales.id_sale', 'sales.date_sale','retails.id_retail', 'retails.name', 'sales.total','sales.status','sales.created_at','users.name','retails.address', 'retails.tlp', 'retails.email','products.id_product','detail_sales.qty','detail_sales.unit','detail_sales.selling_price','products.name')->get();
         
         return view('livewire.sales.show', compact('allStatus','closing','pending','sales', 'data'));
     }
@@ -152,6 +154,25 @@ class Show extends Component
             return redirect()->to('/sales');
         }
     }
+
+    public function deleteConfirmation($id){
+        $this->idSale = $id;
+        $this->dispatchBrowserEvent('confirm-delete-dialog');
+    }
+    public function deleteSales(){
+        $detailBeli = DetailSale::where('id_sale', $this->idSale)->get();
+        foreach ($detailBeli as $key => $item) {
+            $j = $item->qty-$item->qty_retur;
+            Product::where('id_product', $item->id_product)->update([
+                'qty' => $item->product['qty']+$j
+            ]);
+        }
+
+        Sale::where('id_sale', $this->idSale)->delete();
+        DetailSale::where('id_sale', $this->idSale)->delete();
+        $this->emit('reset_kode');
+       $this->dispatchBrowserEvent('swal',['data' => 'Data berhasil dihapus!']);
+   }
 
      // DATATABLE
         // shorting

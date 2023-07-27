@@ -17,7 +17,7 @@
               </button>
               <div class="dropdown-menu" role="menu" style="">
               <a wire:click.prevent='deleteSelectedRows' class="dropdown-item" href="#">Hapus yang ditandai</a>
-              <a class="dropdown-item" href="#">Export Excel</a>
+              
               </div>
             </div>
             <span class="ml-1 badge badge-pill badge-secondary">Selected {{ count($selectedRows) }} {{ Str::plural('Product', count($selectedRows)) }}</span>

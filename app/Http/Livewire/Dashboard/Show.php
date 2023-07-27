@@ -36,7 +36,7 @@ class Show extends Component
         // ->whereBetween('date_sale', [$this->from.' 00:00:00', $this->to.' 23:59:59'])
         ->groupBy('tgl')->pluck('tg');
 
-        $product = DetailSale::select('products.name AS nm_product',DB::raw("SUM(detail_sales.qty) AS jml"))
+        $product = DetailSale::select('products.name AS nm_product',DB::raw("SUM(detail_sales.qty)-SUM(detail_sales.qty_retur) AS jml"))
         ->join('products', 'products.id_product', '=', 'detail_sales.id_product')
         ->groupBy('products.name')->orderBy('jml', 'desc')->limit(10)->get();
          $this->d = $incomes;

@@ -141,6 +141,7 @@
       </a>
         @endif
           <button data-toggle="modal" data-target="#detailSalesmodal" wire:click='detailSales({{ $item->id }})' type="submit" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i>  </button>
+          <button type="submit" class="btn btn-danger" wire:click="deleteConfirmation('{{ $item->sale_id }}')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </td>
       </tr>
       @empty

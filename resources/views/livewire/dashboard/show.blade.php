@@ -124,7 +124,7 @@
             
             <div class="card">
             <div class="card-header">
-                <h5>Produk terlaris</h5>
+                <h5>Produk terlaris 10 besar</h5>
             </div>
             <div class="card-body table-responsive">
             <table class="table table-striped table-bordered table-sm">
@@ -132,7 +132,7 @@
                     <tr>
                         <th class="align-middle text-center">Ranking</th>
                         <th>Produk</th>
-                        <th>Jumlah Terjual</th>
+                        <th class="text-center">Jumlah Terjual</th>
                     </tr>
                     
                 </thead>
@@ -141,12 +141,12 @@
                 <tr>
                     <td class="align-middle text-center">{{ $loop->iteration }}</td>
                     <td>{{ $item->nm_product }}</td>
-                    <td>{{ $item->jml }}</td>
+                    <td class="text-center">{{ $item->jml }}</td>
                 </tr>  
                 
                 @empty
                     <tr>
-                        <td colspan="3" class="text-center">Tidak ada produk yang terjual</td>
+                        <td colspan="3" class="text-center text-italic">Belum ada produk yang terjual</td>
                     </tr>
                 @endforelse
                 </tbody>

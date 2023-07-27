@@ -184,7 +184,7 @@
                                 <!-- .row -->
 
                                 <div class="row">
-                                    <div class="col-md-3 border-right">
+                                    <div class="col-md-2 border-right">
                                         <div class="mt-1 mb-2 text-gray  text-600 text-125">
                                             Informasi Retail
                                         </div>
@@ -241,7 +241,7 @@
                                         </div>
                                     </div>
                                     <!-- /.col -->
-                                    <div class="col-md-9">
+                                    <div class="col-md-10">
                                         <h5>Produk terjual</h5>
                                         @if($stRetur < 1)
                                         <table class="table table-sm ">
@@ -362,6 +362,7 @@
                                                     <th>Total Penjualan</th>
                                                     <th class="text-center border-left">Qty Retur</th>
                                                     <th>Total Retur</th>
+                                                    {{-- <th>Laba produk</th> --}}
                                                     {{-- <th>Aksi</th> --}}
                                                 </tr>
                                             </thead>
@@ -370,6 +371,7 @@
                                                     $subtotal = 0;
                                                     $subtotal_retur = 0;
                                                     // $modal = 0;
+                                                    $laba = 0;
                                                 @endphp
                                                 @foreach ($data as $index => $item)
                                                 <tr>
@@ -396,6 +398,13 @@
                                                         @endif
                                                     </td>
                                                     <td class="text-danger">-{{ number_format( $item->hargaJual * $item->qty_retur , 0, ',', '.') }}</td>
+                                                 
+                                                    {{-- @php
+                                                        $untung = $item->hargamodal-$item->hargaJual;
+                                                        $pnj = $item->qty-$item->qty_retur;
+                                                    @endphp
+                                                    <td class="text-success">{{  number_format($untung * $pnj   , 0, ',', '.') }}</td> --}}
+
                                                     {{-- @if($stEdit === $index)
                                                     <td class="text-center border-left"><button wire:click="editD('{{ $editqty }}','{{ $editqtyr }}','{{ $editindex }}')" type="button" class="btn btn-success">Simpan</button></td>
                                                     @else
@@ -409,12 +418,15 @@
                                                 $subtotal += $sub;
                                                 $subr = $item->hargaJual * $item->qty_retur;
                                                 $subtotal_retur += $subr;
+                                                // $lab = $untung * $pnj;
+                                                // $laba += $lab;
 
                                                 // $mod = $item->hargamodal * $item->qty;
                                                 // $modal += $mod;
                                                 @endphp 
                                                 @endforeach
                                                 {{-- {{ $modal }} --}}
+                                                {{-- {{ $laba }} --}}
                                                 <tr>
                                                     <td colspan="7"  class="font-weight-bold" style="background-color: #c6c6c6;">Subtotal Penjualan <i class="text-sm">(Sp)</i></td>
                                                     <td colspan="7" class="bg-orange font-weight-bold">Rp.{{ number_format( $subtotal, 0, ',', '.') }}</td>
@@ -462,13 +474,26 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->pid }}</td>
-                                                    <td>{{ $item->nameP }}</td>
+                                                    <td>{{ $item->nameP }} {!! $item->rtr == 1 ? "<sup class ='text-small text-success font-weight-bold'>Konsinyasi</sup>" : "" !!}</td>
                                                     <td>{{ $item->satuan }}</td>
                                                     <td>{{ number_format($item->hargamodal, 0, ',', '.')  }}</td>
                                                     <td class="text-center">
+                                                        @if ($item->rtr == 1)
+                                                        {{ $item->qty - $item->qtyretur}}
+                                                        @else
                                                         {{ $item->qty }}
+                                                        @endif
                                                     </td>
-                                                    <td>{{ number_format( $item->hargamodal * $item->qty , 0, ',', '.') }}</td>
+                                                    <td>
+                                                        @if ($item->rtr == 1)
+                                                        @php
+                                                            $j =  $item->qty - $item->qtyretur;
+                                                        @endphp
+                                                        {{ number_format( $item->hargamodal * $j , 0, ',', '.') }}
+                                                        @else
+                                                        {{ number_format( $item->hargamodal * $item->qty , 0, ',', '.') }}
+                                                        @endif
+                                                    </td>
                                                     {{-- @if($stEdit === $index)
                                                     <td class="text-center border-left"><button wire:click="editD('{{ $editqty }}','{{ $editqtyr }}','{{ $editindex }}')" type="button" class="btn btn-success">Simpan</button></td>
                                                     @else
@@ -478,8 +503,14 @@
                                                    
                                                 </tr>
                                                 @php
+                                                if($item->rtr == 1){
+                                                $j =  $item->qty - $item->qtyretur;
+                                                $mod = $item->hargamodal * $j;
+                                                $modal += $mod;
+                                                }else{
                                                 $mod = $item->hargamodal * $item->qty;
                                                 $modal += $mod;
+                                                }
                                                 @endphp 
                                                 @endforeach
                                                 <tr>

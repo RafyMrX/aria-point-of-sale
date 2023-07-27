@@ -14,7 +14,10 @@ class Pos extends Component
 {
     // POS ==================
     
-    protected $listeners = ['deleteConfirmed' => 'deleteCart'];
+    // protected $listeners = ['deleteConfirmed' => 'deleteCart'];
+    protected $listeners = ['reset_kode' => 'rst'];
+  
+
     public $cart_id;
     // Informasi Nota
     public $kode_sales, $date_sales, $nameAdmin,$id_user, $total;
@@ -29,6 +32,10 @@ class Pos extends Component
 
     public $qtyJL, $qtyRL;
 
+    public function rst(){
+     
+        $this->reset(['kode_sales']);
+    }
     public function render()
     {
         $sales = new Sale();
@@ -213,7 +220,11 @@ class Pos extends Component
         
         $this->dispatchBrowserEvent('confirm-delete-dialog');
     }
-    public function deleteCart(){
+    public function deleteCart($id, $id_product, $qtyRestore, $productQty){
+        $this->cart_id = $id;
+        $this->id_product = $id_product;
+        $this->qtyRestore = $qtyRestore;
+        $this->productQty = $productQty;
         Cart::where('id', $this->cart_id)->delete();
         $this->resetInput();
         $this->dispatchBrowserEvent('swal',['data' => 'Data berhasil dihapus!']);
