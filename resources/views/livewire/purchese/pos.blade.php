@@ -17,7 +17,11 @@
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold align-middle">Tanggal</td>
-                                    <td><input wire:model=date_pur type="text" class="form-control" readonly></td>
+                                    <td><input wire:model='date_pur' type="date" class="form-control @error('date_pur') is-invalid @enderror">
+                                        @error('date_pur') 
+                                            <span class="error text-danger">{{ $message }}</span> 
+                                         @enderror
+                                        </td>
                                 </tr>
                                 <tr>
                                     

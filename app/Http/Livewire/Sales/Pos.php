@@ -29,7 +29,8 @@ class Pos extends Component
     public $searchProduk, $validasi = 2, $qty = 1, $vname =2, $vbar = 2, $qtyJ = [], $qtyR = [];
     // delete cart and restore data qty to product
     public $qtyRestore, $id_product, $productQty;
-
+    // diskon 
+    public $disc = [];
     public $qtyJL, $qtyRL;
 
     public function rst(){
@@ -39,8 +40,8 @@ class Pos extends Component
     public function render()
     {
         $sales = new Sale();
-        $this->kode_sales = $sales->kd_sale();
-        $this->date_sales = $sales->dateSale();
+        $this->kode_sales = $sales->kd_sale($this->date_sales);
+        // $this->date_sales = $sales->dateSale();
         $this->nameAdmin = $sales->admin();
         $this->id_user = $sales->idAdmin();
         $retails = Retail::where('status',1)->get();
@@ -78,11 +79,13 @@ class Pos extends Component
         return [
             'status' => 'required',
             'id_retail' => 'required',
+            'date_sales' => 'required',
         ];
     }
     protected $messages = [
         'status.required' => 'Pilih Status!.',
         'id_retail.required' => 'Pilih Retail!.',
+        'date_sales.required' => 'Pilih Tanggal!.',
     ];
     
     public function updatedqtyJ(){
@@ -126,7 +129,41 @@ class Pos extends Component
 
         }
 }
-    
+
+public function resetDisc($id){
+    $data =   Cart::where('id_user', $this->id_user)->where('produksi',1)->where('id', $id);
+    $reset = $data->first();
+    $data->update([
+        'selling_price' => $reset->selling_price + $reset->diskon,
+        'diskon' => 0,
+    ]);
+    $this->dispatchBrowserEvent('swal',['data' => 'Diskon berhasil direset!']);
+}
+
+public function updateddisc(){
+    // dd($this->disc);
+    foreach($this->disc as $key => $value){
+        if($value != null){
+            $data =   Cart::where('id_user', $this->id_user)->where('produksi',1)->where('id', $key);
+            $harga = $data->first();
+            $data->update([
+                'diskon' => $this->disc[$key],
+                'selling_price' => $harga->selling_price - $this->disc[$key]
+            ]);
+            $this->reset(['disc']);
+            // $this->qtyRL = $this->qtyR[$key];
+            // $cart =  Cart::where('id_user', $this->id_user)->where('produksi',1)->where('id', $key)->first();
+            // $product = Product::where('id_product',$cart->id_product)->update([
+            //     'qty' => $cart->product['qty']-$this->qtyJ[$key]
+            // ]);
+        }else{
+             Cart::where('id_user', $this->id_user)->where('produksi',1)->where('id', $key)->update([
+                'diskon' => 0
+            ]);
+        }
+
+    }
+}
     // public function decQtyR($id, $id_product)
     // {
     //     $data = Cart::where('id',$id)->where('id_product', $id_product)->first();
@@ -252,7 +289,7 @@ class Pos extends Component
             'total_retur' => $subtotal-$subretur,
             'jml_retur' => $subretur,
             'diskon' => 0,
-            'date_sale' => date('Y-m-d H:i:s'),
+            'date_sale' => $this->date_sales,
             'status' => $this->status,
             'comment' => $this->comment
         ]);

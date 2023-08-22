@@ -53,7 +53,7 @@
         <th>Kode Supplier</th>
         <th>Nama Supplier</th>
         <th>
-          Qty
+          Qty Pembelian
         </th>
         <th>
           Total Pembelian

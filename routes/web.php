@@ -39,6 +39,8 @@ Route::get('/purchase/reports',[PagesController::class, 'reportPur'])->name('pur
 Route::get('/exportpur/{id}',[PagesController::class, 'purnota']);
 Route::get('/exportpurretur/{id}',[PagesController::class, 'purturnota']);
 
+Route::get('/exdb',[PagesController::class, 'exdb']);
+
 });
 
 

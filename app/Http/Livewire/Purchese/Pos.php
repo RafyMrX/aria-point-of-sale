@@ -33,8 +33,8 @@ class Pos extends Component
     public function render()
     {
         $purchase = new Purchase();
-        $this->kode_pur = $purchase->kd_pur();
-        $this->date_pur = $purchase->datePur();
+        $this->kode_pur = $purchase->kd_pur($this->date_pur);
+        // $this->date_pur = $purchase->datePur();
         $this->nameAdmin = $purchase->admin();
         $this->id_user = $purchase->idAdmin();
         $suppliers = Supplier::all();
@@ -48,10 +48,13 @@ class Pos extends Component
     {
         return [
             'id_supplier' => 'required',
+            'date_pur' => 'required',
+
         ];
     }
     protected $messages = [
         'id_supplier.required' => 'Pilih Supplier!.',
+        'date_pur.required' => 'Pilih Tanggal!.',
     ];
 
     public function updatedqtyJ(){
@@ -196,7 +199,7 @@ foreach($this->qtyR as $key => $value){
             'total_beli' => $subtotal,
             'total_retur' => $subretur,
             'jml_bayar' => $bersih,
-            'date_pur' => date('Y-m-d H:i:s'),
+            'date_pur' => $this->date_pur,
             'comment' => $this->comment
         ]);
         // insert to table detail_pur

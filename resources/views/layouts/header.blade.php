@@ -63,10 +63,18 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                       <div class="dropdown-divider"></div>
+                      <form action="{{ url('/exdb') }}" method="get">
+                        @csrf
+                        <button type="submit" class="dropdown-item"><i class="fa fa-database" aria-hidden="true"></i> Backup Database</button>
+                      </form>
+
                       <form action="{{ url('/logout') }}" method="get">
                         @csrf
-                        <button type="submit" class="dropdown-item"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+                        <button type="submit" class="dropdown-item text-danger"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
                       </form>
+
+                 
+                      
                     </div>
                   </li>
                 <li class="nav-item">
@@ -98,7 +106,7 @@
             <!-- Brand Logo -->
             <a href="/" class="brand-link" style="background-color: #2c2d2e;color:#fff;">
                 <img src="" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <h4 class=" text-center">SI Pempu</h4>
+                <h4 class=" text-center">ARIA SYSTEM</h4>
             </a>
 
             <!-- Sidebar -->

@@ -17,7 +17,12 @@
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold align-middle">Tanggal</td>
-                                    <td><input wire:model=date_sales type="text" class="form-control" readonly></td>
+                                    <td><input wire:model='date_sales' type="date" class="form-control @error('date_sales') is-invalid @enderror">
+                                    @error('date_sales') 
+                                        <span class="error text-danger">{{ $message }}</span> 
+                                     @enderror
+                                    </td>
+                                  
                                 </tr>
                                 <tr>
                                     
@@ -105,14 +110,16 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Kode Produk</th>
-                                <th>Nama Produk</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
                                 <th>Satuan</th>
                                 <th>Harga</th>
+                                <th class="text-center">Disc(%)</th>
                                 <th class="text-center">Qty PJ</th>
                                 <th>Total PJ</th>
                                 <th class="text-center">Qty RTR</th>
                                 <th>Total RTR</th>
+                                <th>Total</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -131,7 +138,17 @@
                             <td class="align-middle">{{ $item->id_product }}</td>
                             <td class="align-middle">{{ $item->name }}</td>
                             <td class="align-middle">{{ $item->product['unit'] }}</td>
-                            <td class="align-middle">{{ number_format($item->selling_price, 0, ',', '.')  }}</td>
+                            <td class="align-middle">
+                                {{  number_format($item->selling_price, 0, ',', '.')  }}
+                            </td>
+
+                            <td class="align-middle">
+                                @if($item->diskon < 1)
+                                <input wire:model.debounce.700ms='disc.{{ $item->id }}' type="number" class="form-control text-center" value="0" min="1" placeholder="disc" style="width:85px;">
+                                @else
+                                <a href="#" wire:click="resetDisc('{{ $item->id }}')"><u>Reset diskon</u></a>
+                                @endif
+                            </td>
 
                             {{-- QTY PENJUALAN --}}
                             <td class="align-middle">
@@ -183,7 +200,10 @@
 
                             <td class="align-middle text-danger font-weight-bold">-{{ number_format( $item->selling_price * $item->qty_retur , 0, ',', '.') }}</td>
 
+                           
+
                             {{-- END RETUR --}}
+                            <td class="align-middle font-weight-bold">{{ number_format(($item->selling_price * $item->qty) - ($item->selling_price * $item->qty_retur), 0, ',', '.')}}</td>
                             <td class="align-middle">
                                 <button type="submit" class="btn btn-danger"
                                     wire:click="deleteCart('{{ $item->id }}','{{ $item->id_product }}','{{ $item->qty }}', '{{  $item->product['qty'] }}')"><i class="fa fa-trash-o"
@@ -222,7 +242,7 @@
                          @endphp
                         @empty
                             <tr>
-                                <td colspan="10" class="text-center p-3 font-italic">Belum ada produk yang ditambahkan</td>
+                                <td colspan="12" class="text-center p-3 font-italic">Belum ada produk yang ditambahkan</td>
                             </tr>
                       
                         @endforelse

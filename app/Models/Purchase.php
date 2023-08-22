@@ -39,11 +39,15 @@ class Purchase extends Model
      return $format;
     }
 
-    public function kd_pur(){
+    public function kd_pur($tgl){
         // INV/J/30062023/0001
         $text ='INV/B/';
-        $date = date('dmY').'/';
-        $kode = Purchase::orderBy('id_pur', 'desc')->first();
+        if(empty($tgl)){
+            $date = '00000000'.'/';
+        }else{
+            $date = str_replace('-','',$tgl).'/';
+        }
+        $kode = Purchase::orderBy('id', 'desc')->first();
         if(empty($kode)){
             $format = $text.''.$date.'0001';
         }else{

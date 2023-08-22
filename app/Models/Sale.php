@@ -44,11 +44,16 @@ class Sale extends Model
      return $format;
     }
 
-    public function kd_sale(){
+    public function kd_sale($tgl){
         // INV/J/30062023/0001
         $text ='INV/J/';
-        $date = date('dmY').'/';
-        $kode = Sale::orderBy('id_sale', 'desc')->first();
+        if(empty($tgl)){
+            $date = '00000000'.'/';
+        }else{
+            $date = str_replace('-','',$tgl).'/';
+        }
+
+        $kode = Sale::orderBy('id', 'desc')->first();
         if(empty($kode)){
             $format = $text.''.$date.'0001';
         }else{

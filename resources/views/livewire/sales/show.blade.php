@@ -71,8 +71,8 @@
         <th>No Nota</th>
         <th>Kode Retail</th>
         <th>Nama Retail</th>
-        <th>
-          Qty
+        <th class="text-center">
+          Qty terjual
           <span wire:click="sortBy('totalqty')" class="float-right text-sm" style="cursor: pointer;">
             <i class="fa fa-arrow-up {{ $sortColumnName === 'totalqty' && $sortDirection === 'asc' ? '' : 'text-dark' }}"></i>
             <i class="fa fa-arrow-down {{ $sortColumnName === 'totalqty' && $sortDirection === 'desc' ? '' : 'text-dark' }}"></i>
@@ -98,7 +98,7 @@
         <td class="align-middle">{{ $item->sale_id }}</td>
         <td class="align-middle">{{ $item->retail_id }}</td>
         <td class="align-middle">{{ $item->name_retail }}</td>
-        <td class="align-middle">
+        <td class="align-middle text-center">
           @if($item->jml_retur < 1)
           {{ $item->totalqty }} 
           @else
